@@ -1,0 +1,176 @@
+﻿<Page x:Class="SFCH.View.PPaseInventario"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SFCH.View"
+      mc:Ignorable="d" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PPaseInventario">
+    <Page.Resources>
+        <Style x:Key="HeaderStyle" TargetType="DataGridColumnHeader">
+
+
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+    </Page.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Encabezado -->
+        
+            <StackPanel>
+                <TextBlock Text="PASE DE INVENTARIO - CONTEO FÍSICO" 
+                          FontSize="16" 
+                          FontWeight="Bold"
+                          HorizontalAlignment="Center"/>
+            <TextBlock HorizontalAlignment="Center" >Fecha del conteo</TextBlock>
+            <TextBlock x:Name="txtFechaConteo" Text="{Binding FechaConteo,StringFormat='dd/MM/yyyy'}" 
+                          FontSize="12"
+                          HorizontalAlignment="Center" Margin="0"/>
+            </StackPanel>
+
+
+        <!-- Panel de controles -->
+        <Border Grid.Row="1"   Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnNuevoConteo" Content="Nuevo Conteo" Height="50" Margin="5" Click="btnNuevoConteo_Click" />
+
+                <Button x:Name="btnGuardarConteo" Content="Guardar Conteo" Height="50" Margin="5" Click="btnGuardarConteo_Click" />
+                <Button x:Name="btnAjustarDiferencias" Content="Ajustar"  Height="50" Margin="5" />
+                <Button x:Name="btnImprimirHoja" Content="Hoja de conteo"  Height="50" Margin="5" />
+                <Button x:Name="btnImprimir" Content="Imprimir Reporte"  Height="50" Margin="5" />
+
+                <ComboBox x:Name="cbcategorias" materialDesign:HintAssist.Hint="Categorias" Width="200" Style="{StaticResource MaterialDesignOutlinedComboBox}" Margin="5" 
+                        
+                        />
+                <Button x:Name="btnCargarInventario" Click="btnCargarInventario_Click" Content="Cargar Inventario"  Height="50" Margin="5" />
+            </StackPanel>
+        </Border>
+
+        <!-- DataGrid para el conteo -->
+        <Border Grid.Row="2" Margin="5">
+            
+            <DataGrid x:Name="dgConteoInventario" 
+                      ItemsSource="{Binding Detalle}"
+                     AutoGenerateColumns="False"
+                     CanUserAddRows="False"
+                     CanUserDeleteRows="False"
+                     IsReadOnly="False"
+                     SelectionMode="Single"
+                     SelectionUnit="FullRow">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Click="MenuItem_Click" Header="Eliminar del inventario">
+                            
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    
+                    <!-- Columna Código -->
+                    <DataGridTextColumn Header="Código" 
+                                       Binding="{Binding Producto.Id}"
+                                       Width="auto"
+                                       IsReadOnly="True"/>
+
+                    <!-- Columna Nombre -->
+                    <DataGridTextColumn Header="Producto" 
+                                       Binding="{Binding Producto}"
+                                       Width="*"  
+                                       IsReadOnly="True"/>
+
+                    <!-- Columna Categoría -->
+                    
+                    <!-- Columna Stock Sistema -->
+                    <DataGridTextColumn Header="Sistema" 
+                                       Binding="{Binding CantSistema}"
+                                       Width="auto"
+                                       IsReadOnly="True"/>
+                    <!-- Columna Stock Físico -->
+                    <DataGridTextColumn  Header="Físico" 
+                                       Binding="{Binding CantFisico,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      
+                                        Width="auto"  >
+                    </DataGridTextColumn>
+
+                    <!-- Columna Diferencia -->
+                    <DataGridTextColumn Header="Diferencia" 
+                                       Binding="{Binding DiferenciaCalculada}"
+                                       Width="auto"
+                                       
+                                       IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock" >
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- Columna Observaciones -->
+                    <DataGridTextColumn Header="Observaciones" 
+                                       Binding="{Binding Observaciones}"
+                                       Width="300"/>
+
+                    <!-- Columna Contador -->
+                    <DataGridTextColumn Header="Contador" 
+                                       Binding="{Binding Contador}"
+                                       Width="120"
+                                       IsReadOnly="True"/>
+                </DataGrid.Columns>
+
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Height" Value="35"/>
+                    </Style>
+                </DataGrid.RowStyle>
+            </DataGrid>
+        </Border>
+
+        <!-- Resumen del conteo -->
+        <Border Grid.Row="3" Background="#ECF0F1" Padding="10" Margin="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="Responsable: " FontWeight="Bold"/>
+                    <TextBlock x:Name="txtResponsable" Width="200" Text="{Binding Usuario}"/>
+                    <TextBox Text="{Binding Estado}" Width="200">
+                        
+                    </TextBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Text="Total Productos: " FontWeight="Bold"/>
+                    <TextBlock x:Name="txtTotalProductos" Text="0" FontWeight="Bold" Foreground="#2980B9"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="10,0,0,0">
+                    <TextBlock Text="Contados: " FontWeight="Bold"/>
+                    <TextBlock x:Name="txtContados" Text="0" FontWeight="Bold" Foreground="#27AE60"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="10,0,0,0">
+                    <TextBlock Text="Pendientes: " FontWeight="Bold"/>
+                    <TextBlock x:Name="txtPendientes" Text="0" FontWeight="Bold" Foreground="#F39C12"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="4" Orientation="Horizontal" Margin="10,0,0,0">
+                    <TextBlock Text="Diferencias: " FontWeight="Bold"/>
+                    <TextBlock x:Name="txtDiferencias" Text="0" FontWeight="Bold" Foreground="#E74C3C"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

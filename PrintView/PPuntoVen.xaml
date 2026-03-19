@@ -1,0 +1,78 @@
+﻿<Page x:Class="SFCH.PrintView.PPuntoVen"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SFCH.PrintView"
+      mc:Ignorable="d" 
+      d:DesignHeight="850" d:DesignWidth="400" FontFamily="Sans Serif Collection" 
+      Title="PPuntoVen">
+
+    <Grid Background="White" x:Name="print"  >
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+           
+        </Grid.RowDefinitions>
+        <ScrollViewer x:Name="data" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <Image Visibility="Collapsed" x:Name="img" Margin="5" Width="100" Height="100"></Image>
+                <TextBlock x:Name="txtTitulo" TextWrapping="WrapWithOverflow" Text="COOPGAFAR" FontSize="14" TextAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,10,0"/>
+                <TextBlock x:Name="txtdireccion" TextAlignment="Center" Text="Av. Cesar Cano" FontSize="8" Margin="0,0,0,0"/>
+                <TextBlock TextAlignment="Center" x:Name="txtTelefono" Text="TEL: (809) 527-6961" FontSize="8" Margin="0,0,0,0"/>
+                <TextBlock TextAlignment="Center" x:Name="txtRNC" Visibility="Visible" Text="RNC 418-00078-5" FontSize="12" Margin="0,0,0,0"/>
+                <TextBlock TextAlignment="Center" FontWeight="Medium" Name="txtnotranssac" FontSize="18"  Margin="0,5,0,5"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="txtTFecha" Text="Fecha: "    Margin="0,0,0,0"/>
+                    <TextBlock HorizontalAlignment="Left" x:Name="txtfecha1"  FontWeight="Bold"  Margin="0,0,15,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="txtCedulal" Text="Cedula: "    Margin="0,0,0,0"/>
+                    <TextBlock x:Name="txtCedula" Text="{Binding Cliente}"  FontWeight="Bold"  Margin="0,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="txtTClient" Text="Socio: "    Margin="0,0,0,0"/>
+                    <TextBlock x:Name="txtCliente" Text="{Binding Cliente}"  FontWeight="Bold"  Margin="0,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="txtTPla" Text="Cuenta: "   Margin="0,0,0,0"/>
+                    <TextBlock x:Name="txtCuenta" Text="{Binding Concepto}"  FontWeight="Bold"  Margin="0,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="txtTPlaca" Text="Concepto: "   Margin="0,0,0,0"/>
+                    <TextBlock x:Name="txtConcep" Text="{Binding Concepto}"  FontWeight="Bold"  Margin="0,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="txtFrente" Text="Observacion: "   Margin="0,0,0,0"/>
+                    <TextBlock x:Name="txtOb" Text="{Binding Observación}" FontWeight="Bold"  Margin="0,0,0,0"/>
+                </StackPanel>
+
+                <Separator Background="Black" FontWeight="UltraBold" BorderBrush="Black"  FontSize="20" Width="400"  HorizontalAlignment="Center" Margin="0,2,0,0"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
+                    <TextBlock  Text="Monto RD$ :  " FontSize="16" />
+                    <TextBlock x:Name="txtMonto" Text="{Binding Factura.Monto,StringFormat='{}RD$ {0:N2}'}" FontSize="16" FontWeight="Bold"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
+                    <TextBlock FontWeight="Bold" Text="Total: " FontSize="16" />
+                    <TextBlock x:Name="txtTotal" Text="{Binding Factura.Total,StringFormat='{}RD$ {0:N2}'}" FontSize="16" FontWeight="Bold"/>
+                </StackPanel>
+                <Separator Background="Black" FontWeight="UltraBold" BorderBrush="Black"  FontSize="20" Width="400"  HorizontalAlignment="Center" Margin="0,10,0,0"/>
+
+                <Separator Background="Black" FontWeight="UltraBold" BorderBrush="Black"  FontSize="20" Width="200"  HorizontalAlignment="Center" Margin="0,50,0,0"/>
+
+                <TextBlock Text="Firma Socio" FontWeight="ExtraBold" FontStyle="Italic" FontSize="13" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+                <TextBlock  Text="" FontWeight="Bold" FontStyle="Italic" FontSize="13" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                <Separator Background="Black" FontWeight="UltraBold" BorderBrush="Black"  FontSize="20" Width="200"  HorizontalAlignment="Center" Margin="0,50,0,0"/>
+                <TextBlock Text="Firma Cajero" FontWeight="ExtraBold" FontStyle="Italic" FontSize="13" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+                <TextBlock x:Name="txtOrigional"  Text="Original" FontWeight="Bold" FontStyle="Italic" FontSize="13" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                <TextBlock x:Name="txtUsuario"  Text="" FontSize="14" HorizontalAlignment="Left" Margin="5,10,0,0"/>
+
+
+                <TextBlock>...</TextBlock>
+                <TextBlock>...</TextBlock>
+                <TextBlock>...</TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

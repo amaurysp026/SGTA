@@ -1,0 +1,31 @@
+﻿<Page x:Class="SFCH.View.PRIngresosXmes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SFCH.View"    
+      xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+      mc:Ignorable="d"   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PRIngresosXmes">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <ComboBox Name="cbanno" Width="150" Margin="10" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Año"></ComboBox>
+            <Button x:Name="btnImprimir" Content="Imprimir" Height="50" Margin="10" Click="btnImprimir_Click"></Button>
+        </StackPanel>
+        <ListView x:Name="data" Margin="5" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Mes" TextBlock.TextAlignment="Center" Width="auto" DisplayMemberBinding="{Binding Mes}"/>
+                    <GridViewColumn Header="Total Ingresos" TextBlock.TextAlignment="Right" Width="auto" DisplayMemberBinding="{Binding Total, StringFormat='{}{0:N2}'}"/>
+                    <GridViewColumn Header="Total Egreso" TextBlock.TextAlignment="Right" Width="auto" DisplayMemberBinding="{Binding Ingresos, StringFormat='{}{0:N2}'}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Page>

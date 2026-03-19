@@ -1,0 +1,67 @@
+﻿<Window x:Class="SFCH.View.VTransaccion"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SFCH.View"
+        mc:Ignorable="d" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="VTransaccion" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"  >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="AUTO"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Name="txtTitulo" Grid.Column="0" Grid.ColumnSpan="5" TextAlignment="Center" FontWeight="Bold" FontSize="30" HorizontalAlignment="Stretch"  >Transacción de Ingreso</TextBlock>
+
+        <TextBox Name="txtId" MaxLength="11" Margin="5" materialDesign:HintAssist.Hint="Identificacion" Grid.Row="1" Grid.Column="1" LostFocus="TextBox_LostFocus"  Style="{StaticResource MaterialDesignOutlinedTextBox}" TextChanged="TextBox_TextChanged"></TextBox>
+        <TextBox Name="txtNombre" Margin="5" materialDesign:HintAssist.Hint="Nombre" Grid.Row="1" Grid.Column="2"  Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+        <ComboBox Margin="5" Grid.Row="1" Grid.Column="3"  x:Name="CbCuentas" materialDesign:HintAssist.Hint="Cuenta" Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+        <TextBox Margin="5" Name="txtmonto" materialDesign:HintAssist.Hint="Monto Total RD$" Grid.Row="2" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+        <DatePicker Name="txtfecha" Margin="5" materialDesign:HintAssist.Hint="Fecha de Transacción" Grid.Row="2" Grid.Column="3"  Style="{StaticResource MaterialDesignOutlinedDatePicker}"></DatePicker>
+        <TextBox Margin="5" Name="txtdescripcion" materialDesign:HintAssist.Hint="Descripción" Grid.Row="2" Grid.Column="2"  Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+        <TextBox Margin="5" Name="txtReferencia" materialDesign:HintAssist.Hint="Referencia" Grid.Row="3" Grid.Column="1"  Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+        <Grid Grid.Row="3" Grid.Column="3"  >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="txtCodigoA" Margin="5"  materialDesign:HintAssist.Hint="Codigo Asogafar" Style="{StaticResource MaterialDesignOutlinedTextBox}" TextChanged="txtCodigoA_TextChanged"></TextBox>
+            <StackPanel Margin="5" Grid.Column="1">
+                <CheckBox Name="chCapital" Content="APORTE A CAPITAL"></CheckBox>
+            </StackPanel>
+        </Grid>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.Row="4"></Border>
+        <StackPanel Grid.Row="4" Grid.Column="1" Margin="5">
+
+            <CheckBox  Content="APORTE A CAPITAL"></CheckBox>
+        </StackPanel>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Grid.Column="2" Grid.RowSpan="2">
+            <StackPanel>
+                <TextBlock>Cargos Adicionales</TextBlock>
+                <CheckBox x:Name="chHaoro" Content="RD$ 100 a Cuneta de ahorro" ></CheckBox>
+                <CheckBox x:Name="chInscripcion" Content="Inscripción (RD$ 500)" ></CheckBox>
+            </StackPanel>
+        </Border>
+        <Button Margin="5" Height="50"  Grid.Row="5" Grid.Column="1" Click="Button_Click">
+            <StackPanel>
+                <TextBlock>Guardar Ingreso</TextBlock>
+            </StackPanel>
+        </Button>
+        <Button Margin="5" Height="50"  Grid.Row="5" Grid.Column="3" Click="Button_Click_1">
+            <StackPanel>
+                <TextBlock>Cancelar</TextBlock>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Window>

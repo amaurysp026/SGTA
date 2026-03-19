@@ -1,0 +1,147 @@
+﻿<Window x:Class="SFCH.View.VCierreCuadre"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SFCH.View" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+        Title="Cierre Cuadre de Turno" Height="600" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="Cuadre de Turno" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,5,0,5"/>
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="5">
+            <StackPanel x:Name="skEfInicial" Visibility="Collapsed" Orientation="Horizontal" >
+                <TextBlock Text="Efectivo Inicial:" FontSize="16" FontWeight="Bold" Margin="1" />
+                <TextBlock Name="txtEfInicial" FontSize="16" Margin="1" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" >
+                <TextBlock Text="Ventas Totales:" FontSize="16" FontWeight="Bold" Margin="1" />
+                <TextBlock Name="txtVentasTotales" FontSize="16" Margin="1" />
+            </StackPanel>
+            <StackPanel x:Name="skVefectivo" Visibility="Collapsed" Orientation="Horizontal" >
+                <TextBlock Text="Venta Efectivo:" FontSize="16" FontWeight="Bold" Margin="1" />
+                <TextBlock Name="txtVentasEfectivo" FontSize="16" Margin="1" />
+            </StackPanel>
+            <StackPanel x:Name="skVCredito" Visibility="Collapsed" Orientation="Horizontal" >
+                <TextBlock Text="Venta Credito:" FontSize="16" FontWeight="Bold" Margin="1" />
+                <TextBlock Name="txtVentasCredito" FontSize="16" Margin="1" />
+            </StackPanel>
+            <StackPanel x:Name="skcheques" Visibility="Collapsed" Orientation="Horizontal" >
+                <TextBlock Text="Cheques:" FontSize="16" FontWeight="Bold" Margin="1" />
+                <TextBlock Name="txtCheques" FontSize="16" Margin="1" />
+            </StackPanel>
+            <StackPanel x:Name="skContrato" Visibility="Collapsed" Orientation="Horizontal" >
+                <TextBlock Text="Contrato:" FontSize="16" FontWeight="Bold" Margin="1" />
+                <TextBlock Name="txtContrato" FontSize="16" Margin="1" />
+            </StackPanel>
+            <StackPanel x:Name="skingresos" Visibility="Collapsed"  Orientation="Horizontal" >
+                <TextBlock Text="Total Ingreso:" FontSize="16" FontWeight="Bold" Margin="1" />
+                <TextBlock Name="txtTingreso" FontSize="16" Margin="1" />
+            </StackPanel>
+            <StackPanel x:Name="skEgresos" Visibility="Collapsed" Orientation="Horizontal" >
+                <TextBlock Text="Total Egreso:" FontSize="16" FontWeight="Bold" Margin="1" />
+                <TextBlock Name="txtTEgreso" FontSize="16" Margin="1" />
+            </StackPanel>
+            <StackPanel x:Name="skefectivocontado" Orientation="Horizontal" >
+                <TextBlock Text="Efectivo al Contado:" FontSize="16" FontWeight="Bold" Margin="1" />
+                <TextBlock Name="txtEfectivoContado" FontSize="16" Margin="1"/>
+            </StackPanel>
+            <Separator/>
+            <StackPanel Orientation="Horizontal" >
+                <TextBlock Text="Total Efectivo:" FontSize="20" FontWeight="Bold" Margin="1" />
+                <TextBlock Name="txtTotalFinal" FontWeight="Bold" FontSize="20" Margin="1"/>
+               
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Total Declarado:" FontSize="20" FontWeight="Bold" Margin="1" />
+                <TextBlock Name="txtTotalDeclarado" FontWeight="Bold" FontSize="20" Margin="1"/>
+            </StackPanel>
+            <StackPanel x:Name="skdiferencia" Orientation="Horizontal" >
+                <TextBlock Text="Diferencia:" FontSize="20" FontWeight="Bold" Margin="5" />
+                <TextBlock Name="txtDiferencia" FontSize="20" Margin="5"/>
+            </StackPanel>
+            <TextBox x:Name="txtobservaciones" Margin="3"   Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Observaciones" FontSize="16" FontWeight="Bold" />
+            <Separator Margin="3"/>
+            <TextBlock>Detalle Ingresos / Egresos</TextBlock>
+            <DataGrid Name="data2" CanUserAddRows="False" dgx:DataGridFilter.IsAutoFilterEnabled="True" AutoGenerateColumns="False" >
+                <DataGrid.Columns>
+                    <materialDesign:DataGridTextColumn IsReadOnly="True" Header="Id" Binding="{Binding Id}"/>
+                    <materialDesign:DataGridTextColumn IsReadOnly="True" Header="Nombre" Binding="{Binding Descripcion}" Width="*"/>
+                    <materialDesign:DataGridTextColumn IsReadOnly="True" Header="Ingresos" Binding="{Binding Ingreso}"/>
+                    <materialDesign:DataGridTextColumn IsReadOnly="True" Header="Egresos" Binding="{Binding Egreso}"/>
+                    
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <GroupBox Grid.Column="1"  Grid.Row="1" Header="DESGLOSE DE BILLETES" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Name="txtcantidad" Margin="5" KeyDown="txtcantidad_KeyDown" materialDesign:HintAssist.Hint="Cantidad" Width="100" Style="{StaticResource MaterialDesignOutlinedTextBox}" ></TextBox>
+
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >X</TextBlock>
+                    <TextBox Name="txtdenominacion" KeyDown="txtdenominacion_KeyDown" Margin="5" materialDesign:HintAssist.Hint="Denominación" Width="100" Style="{StaticResource MaterialDesignOutlinedTextBox}" ></TextBox>
+
+                    <Button Click="Button_Click" Height="auto" Margin="5" >Add</Button>
+                    <Button x:Name="btnremovedes" Click="btnremovedes_Click" Height="auto" Background="OrangeRed" Margin="5" >Eliminar</Button>
+                </StackPanel>
+                <ListView FontSize="20" Name="data" Grid.Row="1">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Eliminar" Click="btnremovedes_Click">
+                                <MenuItem.Icon>
+                                    <materialDesign:PackIcon Kind="Delete" Foreground="Red"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                    <ListView.View>
+                 
+                        <GridView>
+                           
+                            <GridViewColumn Header="Cantidad">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Cantidad, StringFormat='{} {0:N0} X'}" HorizontalAlignment="Right" TextAlignment="Right"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Billete">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Denominacion, StringFormat=C}" HorizontalAlignment="Left" TextAlignment="Left"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Total">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Total, StringFormat=C}"  FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <TextBlock Name="txtTotalDesglose" Text="0.00" FontWeight="Bold" Grid.Row="2"  FontSize="20" Margin="0,5,0,10"/>
+            </Grid>
+        </GroupBox>
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="2">
+            <Button Name="btnCerrar" Click="btnCerrar_Click" Margin="5" Height="50" >Cerrar Cuadre</Button>
+            <Button Background="OrangeRed" Margin="5" Height="50" Click="Button_Click_1" >Cancelar</Button>
+        </StackPanel>
+    </Grid>
+</Window>

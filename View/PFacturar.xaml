@@ -1,0 +1,235 @@
+﻿<Page x:Class="SFCH.View.PFacturar"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SFCH.View" xmlns:fa="http://schemas.fontawesome.io/icons/" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800" FontSize="18" KeyDown="Page_KeyDown"
+      Title="PFacturar">
+
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="1.5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.4*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Center" Text="{Binding Id,StringFormat='{}Factura #{0:0}'}" ></TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="AUTO"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <materialDesign:Badged Margin="5"  Name="bagabierta"
+                                   BadgeBackground="Red"
+                                   BadgeForeground="White">
+                <Button Foreground="Black" Name="btnabierta" Click="btnabierta_Click" Background="GreenYellow" Height="57"
+    Content="Abiertas  - F11"
+    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+            </materialDesign:Badged>
+            <Button Visibility="Collapsed" Margin="5" Height="57" Background="GreenYellow" Foreground="Black" >Abierta</Button>
+            <Button Grid.Column="3" Height="57" Margin="5" Click="Button_Click_1" >
+                <StackPanel >
+                    <materialDesign:PackIcon HorizontalContentAlignment="Center" HorizontalAlignment="Center" Kind="UserSearch" Width="25" Height="25"></materialDesign:PackIcon>
+                    <TextBlock FontSize="8"  >Clientes F4</TextBlock>
+                </StackPanel></Button>
+            <TextBox Grid.Column="4" Name="txtcodproducto" KeyUp="txtcodproducto_KeyUp" KeyDown="TextBox_KeyDown_1" Margin="5" Width="130" materialDesign:HintAssist.Hint="Codigo Pro.." Style="{StaticResource MaterialDesignOutlinedTextBox}">
+                
+            </TextBox>
+            <Button Grid.Column="5" Height="57" Margin="5" Click="Button_Click_2" >
+                <StackPanel>
+                    <materialDesign:PackIcon  Width="25" Height="25" Kind="Search" HorizontalAlignment="Center"/>
+                    <TextBlock FontSize="8">Productos F5</TextBlock>
+                </StackPanel></Button>
+            <Menu Grid.Column="6" Margin="2" Height="59" >
+                <MenuItem  FontSize="16" Header="Mas">
+                    <MenuItem  Header="Cambiar Fecha">
+
+                    </MenuItem>
+                    <MenuItem  Header="Cambiar Fecha">
+
+                    </MenuItem>
+                    <MenuItem  Header="">
+
+                    </MenuItem>
+                    <MenuItem Header="Nota de Credito">
+
+                    </MenuItem>
+                    <MenuItem Name="ntnRetificar"  Header="Retificar Factura">
+
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+            <TextBox Text="{Binding NombreCliente}" Name="txtcliente" GotFocus="TextBox_GotFocus_1" Grid.Column="2" HorizontalContentAlignment="Center" Margin="5" materialDesign:HintAssist.Hint="Cliente a Facturar" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+            <TextBox Text="{Binding CodigoSocio}" Grid.Column="1" HorizontalContentAlignment="Center" Margin="5" materialDesign:HintAssist.Hint="Codigo " Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+        </Grid>
+        <Grid Grid.Column="1" HorizontalAlignment="Center" Grid.Row="0" Grid.RowSpan="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" ></ColumnDefinition>
+                <ColumnDefinition Width="auto" ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.ColumnSpan="2"  >
+                <TextBlock HorizontalAlignment="Center" FontSize="20" Text="{Binding FechaEmision,StringFormat='{}Fecha: {0:dd/MM/yyyy}'}" ></TextBlock>
+                <TextBlock FontSize="18" HorizontalAlignment="Center" Margin="5" FontWeight="Bold" Text="{Binding NombreVendedor}" ></TextBlock>
+                <Separator></Separator>
+                <TextBox Text="{Binding Total,StringFormat='{}{0:C}'}" materialDesign:HintAssist.Hint="MONTO TOTAL RD$"  IsReadOnly="True" materialDesign:HintAssist.Background="Black" Style="{StaticResource MaterialDesignOutlinedTextBox}" Foreground="Yellow" Background="Black" Margin="20,15,0,0" FontSize="25" FontWeight="ExtraBold" TextAlignment="Center"  ></TextBox>
+                <TextBlock Grid.Column="1" FontSize="15" Grid.Row="0" Margin="0,0,0,10" FontWeight="Bold" TextAlignment="Center"  Text="{Binding ITBIS,StringFormat='ITBIS: {0:C}'}" ></TextBlock>
+            </StackPanel>
+            <TextBox Text="{Binding PagoCon,StringFormat='{}{0:c}'}" KeyDown="TextBox_KeyDown" GotFocus="TextBox_GotFocus" Margin="5"  Grid.Column="0" Grid.Row="1" materialDesign:HintAssist.Hint="Efectivo" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+            <TextBox Text="{Binding Tarjeta,StringFormat='{}{0:c}'}" IsEnabled="False" GotFocus="TextBox_GotFocus" Margin="5" Grid.Column="1" Grid.Row="1"  materialDesign:HintAssist.Hint="Tarjeta" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+            <Separator Grid.Row="2" Grid.ColumnSpan="2"  ></Separator>
+
+            <Button Grid.Row="3" Margin="5" Height="50" Name="btnefectivo" Click="Button_Click" >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Cash" Foreground="GreenYellow" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="20" Height="20" ></materialDesign:PackIcon>
+                    <TextBlock>  Efectivo - F8</TextBlock>
+                </StackPanel></Button>
+            <Button Grid.Column="1" Grid.Row="3" IsEnabled="False" Margin="5" Height="50" >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Card" Foreground="AliceBlue" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="20" Height="20" ></materialDesign:PackIcon>
+                    <TextBlock> Tarjeta - F7</TextBlock>
+                </StackPanel>
+            </Button>
+            <TextBox Text="{Binding Cambio,StringFormat='{}{0:c}'}" Foreground="Green" IsReadOnly="True" Margin="5"  Grid.Column="0" Grid.Row="4"  materialDesign:HintAssist.Hint="Cambio" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+            <TextBox Text="{Binding TotalPendiente,StringFormat='{}{0:c}'}" Foreground="Red" IsReadOnly="True" Margin="5"  Grid.Column="1" Grid.Row="4"  materialDesign:HintAssist.Hint="Pendiente pago" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+            <Separator Grid.Row="5" Grid.ColumnSpan="2"  ></Separator>
+
+            <Button Grid.Row="6" Name="btnFacturar" Click="btnFacturar_Click" Height="50" Margin="5" >Cerrar y Facturar</Button>
+            <Button Grid.Row="6" Grid.Column="1" Height="50" Margin="5" Name="btnVerAbiertas" Background="LightGreen" Foreground="Black" Click="btnVerAbiertas_Click" HorizontalAlignment="Right" Width="168" >Guardar Abierta - F12</Button>
+            <Button Grid.Row="7" Grid.Column="1" Height="50" Margin="5" Name="btnCancelar" Background="OrangeRed" Foreground="Black" Click="btnCancelar_Click" HorizontalAlignment="Right" Width="168" >Cancelar - Esc</Button>
+            <Button Grid.Row="7" Grid.Column="0" Height="50" Margin="5" Name="btncredito"  Click="btnVerAbiertas_Click" HorizontalAlignment="Right" Width="168" IsEnabled="False" >Credito</Button>
+        </Grid>
+        <ListView Visibility="Collapsed" FontSize="16" Background="Red" Name="dataV" Grid.Row="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn  Header="NOMBRE">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Producto}" HorizontalAlignment="Right" TextAlignment="Right"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Cantidad">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Cantidad}" HorizontalAlignment="Left" TextAlignment="Left"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Precio">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox IsReadOnly="{Binding CambiarPrecio}" Text="{Binding PrecioUnitario}" HorizontalAlignment="Left" TextAlignment="Left"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Total">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Total, StringFormat=C}"  FontWeight="Bold" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <DataGrid CanUserAddRows="False" Visibility="Visible" x:Name="data" KeyUp="DataGrid_KeyUp" LostFocus="DataGrid_LostFocus" LostKeyboardFocus="DataGrid_LostKeyboardFocus" CurrentCellChanged="DataGrid_CurrentCellChanged" KeyDown="DataGrid_KeyDown" AutoGenerateColumns="False" ItemsSource="{Binding Detalles}" Margin="5" Grid.Row="2">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Eliminar Producto" Name="mbtneliminar" Click="mbtneliminar_Click">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Foreground="Red" Kind="Delete"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns >
+                <DataGridTextColumn  IsReadOnly="True" Header="NOMBRE PRODUCTO" Binding="{Binding NombreProducto}" Width="12*"></DataGridTextColumn>
+                <DataGridTextColumn Header="CANTIDAD" Binding="{Binding Cantidad,StringFormat='{}{0:n2}'}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="UNIDAD" Binding="{Binding UnidadMedida}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="PRECIO" Binding="{Binding PrecioUnitario,StringFormat=C}" Width="auto">
+
+                </DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="ITBIS" Binding="{Binding ITBIS,StringFormat=C}" Width="AUTO"></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="DESCUENTO" Binding="{Binding Descuento,StringFormat=C}" Width="AUTO"></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="SUB-TOTAL" Binding="{Binding SubTotal,StringFormat=C}" Width="AUTO"></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="TOTAL" Binding="{Binding Total,StringFormat=C}" Width="150"></DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <TabControl  x:Name="tabControlCategorias" Padding="0"  LostFocus="tabControlCategorias_LostFocus" Grid.Row="3" Margin="5"
+               
+  materialDesign:ColorZoneAssist.Background="Blue"
+  materialDesign:ColorZoneAssist.Foreground="White"
+  materialDesign:ColorZoneAssist.Mode="Standard"
+                     
+  Style="{StaticResource MaterialDesignFilledTabControl}" SelectionChanged="tabControlCategorias_SelectionChanged"
+                     >
+            <!-- Estilo básico para las pestañas -->
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Header}" Margin="0,0,5,0"/>
+                        <TextBox Text="{Binding CantidadProductos}" IsReadOnly="True" Width="30" HorizontalContentAlignment="Center" Background="White" Foreground="Black" FontWeight="Bold" />
+                    </StackPanel>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+
+            <!-- Contenido de cada pestaña -->
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <ListView Name="ListV" Grid.Column="1"  SelectionChanged="ListV_SelectionChanged" ItemsSource="{Binding Productos}" HorizontalContentAlignment="Left"  ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+ScrollViewer.VerticalScrollBarVisibility="Auto" >
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+
+                                <WrapPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                                    <WrapPanel.Width>
+                                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ListView}}"/>
+                                    </WrapPanel.Width>
+                                </WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+
+                        <ListView.ItemTemplate >
+                            <DataTemplate>
+                                <materialDesign:Card Background="White"  Padding="10" UniformCornerRadius="14"  Width="125" BorderBrush="Gray" BorderThickness="1"  Margin="0">
+                                    <StackPanel  HorizontalAlignment="Center">
+                                        <Image Height="100" Width="100" Source="{Binding Imagen}">
+
+                                        </Image>
+                                        <TextBlock Text="{Binding Id,StringFormat='{}Cod. {0:0}'}" FontSize="10"/>
+                                        <TextBlock FontWeight="DemiBold" Text="{Binding Nombre}" FontSize="10"/>
+                                        <TextBlock FontWeight="DemiBold" Foreground="Blue" Text="{Binding Precio,StringFormat='RD${0:N2}'}" FontSize="12"/>
+                                    </StackPanel>
+                                </materialDesign:Card>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+
+    </Grid>
+</Page>

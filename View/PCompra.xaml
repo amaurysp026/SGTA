@@ -1,0 +1,124 @@
+﻿<Page x:Class="SFCH.View.PCompra"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SFCH.View" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PCompra">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height=".2*"/>
+        </Grid.RowDefinitions>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" >Compra</TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Height="50" Margin="5" Click="Button_Click_3">
+                <StackPanel >
+                    <materialDesign:PackIcon HorizontalContentAlignment="Center" HorizontalAlignment="Center" Kind="Shop" Width="25" Height="25"></materialDesign:PackIcon>
+                    <TextBlock FontSize="8"  >Ver Compras F3</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="1" Height="50" Margin="5" Click="Button_Click_1">
+                <StackPanel >
+                    <materialDesign:PackIcon HorizontalContentAlignment="Center" HorizontalAlignment="Center" Kind="UserSearch" Width="25" Height="25"></materialDesign:PackIcon>
+                    <TextBlock FontSize="8"  >Proveedores F4</TextBlock>
+                </StackPanel>
+            </Button>
+            <TextBox x:Name="txtBuscarCompra" Text="{Binding Compra.Proveedor.Nombre}" materialDesign:HintAssist.Hint="Proveedor de la compra"  Grid.Column="2" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="5"  VerticalAlignment="Center"/>
+            <TextBox Text="{Binding Compra.NumeroFactura}" materialDesign:HintAssist.Hint="Numero Factura" Grid.Column="3" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="5"  VerticalAlignment="Center"/>
+            <TextBox Text="{Binding Compra.TasaCambio}" materialDesign:HintAssist.Hint="Tasa" Grid.Column="4" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="5"  VerticalAlignment="Center"/>
+            <DatePicker SelectedDate="{Binding Compra.FechaCompra}" materialDesign:HintAssist.Hint="Fecha en Factura" Margin="5" Grid.Column="6" Style="{StaticResource MaterialDesignOutlinedDatePicker}"></DatePicker>
+        </Grid>
+        <StackPanel Margin="5" Grid.Column="1" Grid.Row="1" >
+            <TextBlock Text="{Binding Compra.FechaEmision,StringFormat='{}dd/MM/yyy'}" FontSize="18" TextAlignment="Center">
+
+            </TextBlock>
+            <TextBlock Text="{Binding Compra.Usuario.NombreCompleto}" FontSize="18" FontWeight="SemiBold" TextAlignment="Center">
+            </TextBlock>
+        </StackPanel>
+        <Grid Background="Honeydew" Margin="5" Grid.Column="1" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Visibility="Collapsed" Grid.Row="1" Height="50" Margin="5"  >
+                <StackPanel>
+                    <materialDesign:PackIcon  Width="25" Height="25" Kind="Search" HorizontalAlignment="Center"/>
+                    <TextBlock FontSize="8">Productos F5</TextBlock>
+                </StackPanel>
+            </Button>
+            <TextBox  Text="{Binding detalle.Producto.Nombre}" Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="4" materialDesign:HintAssist.Hint="Producto" Margin="5" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+            <TextBox  Text="{Binding detalle.Cantidad}" Grid.Column="0" Grid.Row="2" materialDesign:HintAssist.Hint="Cantidad" Margin="5" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+            <TextBox  Text="{Binding detalle.PrecioUnitario}" Grid.Column="1" Grid.Row="2" materialDesign:HintAssist.Hint="Costo RD$" Margin="5" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+            <TextBox  Text="{Binding detalle.PrecioUSD}" Grid.Column="2" Grid.Row="2" materialDesign:HintAssist.Hint="Costo USD$" LostFocus="TextBox_LostFocus" Margin="5" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+            <TextBox  Text="{Binding detalle.Impuesto}" Visibility="Collapsed" Grid.Column="2" Grid.Row="2" materialDesign:HintAssist.Hint="Impuesto" Margin="5" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+            <TextBox  Text="{Binding detalle.Descuento}" Grid.Column="3" Grid.Row="2" materialDesign:HintAssist.Hint="Descuento" Margin="5" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+            <Button Grid.Row="3" Grid.ColumnSpan="4" Height="50" Margin="5,5,5,0" Click="Button_Click" VerticalAlignment="Top">Agregar Producto</Button>
+            <Button Grid.Row="4" Grid.ColumnSpan="2" Height="50" Margin="5" Click="Button_Click_2">Registrar Compra</Button>
+            <Button Grid.Row="4" Grid.ColumnSpan="2" Height="50" Margin="5" Grid.Column="2" Background="OrangeRed" Click="Button_Click_2">Cancelar</Button>
+            <Button Grid.Row="5" Grid.ColumnSpan="2" Height="50" Margin="5" Grid.Column="2" Name="btnnuevoproducto" Click="btnnuevoproducto_Click">Nuevo Producto</Button>
+
+        </Grid>
+        <DataGrid x:Name="dataGridCompras" ItemsSource="{Binding Compra.Detalles}" Grid.Column="0" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="2" Margin="5">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="Cod" Binding="{Binding Producto.Id}" Width="auto"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Producto" Binding="{Binding Producto.Nombre}" Width="*"/>
+                <DataGridTextColumn IsReadOnly="True" Visibility="Collapsed" Header="Precio V/A" Binding="{Binding Producto.Precio}" Width="auto"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Cant." Binding="{Binding Cantidad}" Width="auto"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Costo" Binding="{Binding PrecioUnitario}" Width="auto"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Costo USD" Binding="{Binding PrecioUSD}" Width="auto"/>
+                <DataGridTextColumn IsReadOnly="True" Header="ITBIS" Binding="{Binding Tasa }" Width="auto"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Descuento" Binding="{Binding Descuento }" Width="auto"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Total USD$" Binding="{Binding SubttalUSD}" Width="auto"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Total RD$" Binding="{Binding Subtotal}" Width="auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="3" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" materialDesign:HintAssist.Hint="Observación" Text="{Binding Compra.Descripcion}" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontSize="18" TextAlignment="Center"/>
+
+            <StackPanel HorizontalAlignment="Left" Grid.Column="2" >
+                <TextBlock Text="{Binding Compra.Total, StringFormat='Total RD: {0:C2}'}" FontSize="18" TextAlignment="Right"/>
+                <TextBlock Grid.Column="2"  Text="{Binding Compra.TotalUSD, StringFormat='Total USD: {0:C2}'}" FontSize="18" TextAlignment="Right"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <TextBlock TextAlignment="Center" FontWeight="DemiBold">Ajustar Precios</TextBlock>
+                <RadioButton IsEnabled="False" Content="Segun Utilidad x Producto" ></RadioButton>
+                <RadioButton IsChecked="True" Content="En proporción al nuevo costo" ></RadioButton>
+                <RadioButton IsEnabled="False" Content="No modificar precio" ></RadioButton>
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

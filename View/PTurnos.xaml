@@ -1,0 +1,112 @@
+﻿<Page x:Class="SFCH.View.PTurnos"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SFCH.View" xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+      mc:Ignorable="d"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PTurnos">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+           
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Row="2" Grid.Column="0" dgx:DataGridFilter.IsAutoFilterEnabled="True" AutoGenerateColumns="False" CanUserAddRows="False" SelectionChanged="data_SelectionChanged" x:Name="data" IsReadOnly="True" ItemsSource="{Binding turnos}" Margin="10">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Imprimir Cuadre" Name="MbtnReimprimirCuad" Click="MbtnReimprimirCuad_Click">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Printer"></materialDesign:PackIcon>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Cerrar Turno" Click="MbtnCerrar_Click" Name="MbtnCerrar">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="CloseBoxMultiple"></materialDesign:PackIcon>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Ver Facturas" Click="MbtnVerdetalle_Click" Name="MbtnVerdetalle">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Details"></materialDesign:PackIcon>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="auto"/>
+                <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" Width="auto" />
+                <DataGridTextColumn Header="Fecha Apertura" Binding="{Binding FechaInicio,StringFormat=dd/MM/yyy}" Width="auto"/>
+                <DataGridTextColumn Header="Fecha Cierre" Binding="{Binding FechaFin,StringFormat=dd/MM/yyy}" Width="auto"/>
+                <DataGridTextColumn Header="Inicial" Binding="{Binding TotalInicial,StringFormat=C}" Width="auto"/>
+                <DataGridTextColumn Header="Ventas" Binding="{Binding Ventas,StringFormat=C}" Width="auto"/>
+                <DataGridTextColumn Header="Efectivo" Binding="{Binding EfectivoContado,StringFormat=C}" Width="auto"/>
+                <DataGridTextColumn Header="Total" Binding="{Binding TotalFinal,StringFormat=C}" Width="auto"/>
+                <DataGridTextColumn Header="Usuario" Binding="{Binding Usuario}" Width="auto"/>
+                <DataGridTextColumn Header="Nota" Binding="{Binding Observaciones}" Width="*"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <ProgressBar Grid.Row="1" Name="progreso" Visibility="Visible" IsIndeterminate="True" Height="5"></ProgressBar>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
+            <Button   Height="50" Margin="5" >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="AllInclusive" Width="25" Height="25"/>
+                    <TextBlock Text="   Todos"/>
+                </StackPanel>
+            </Button>
+            <Button   Height="50" Margin="5" >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="FastForward10" Width="25" Height="25"/>
+                    <TextBlock Text="   Utimos"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnRefrescar"  Height="50" Margin="5" Click="btnRefrescar_Click" >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Update" Width="25" Height="25"/>
+                    <TextBlock Text="   Actualizar"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnabrirTurno"  Height="50" Margin="5" Click="btnabrirTurno_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="OpenInNew" Width="25" Height="25"/>
+                    <TextBlock Text="   Aperturar"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnCerrarTurno"  Height="50" Margin="5" Click="btnCerrarTurno_Click" >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Close" Width="25" Height="25"/>
+                    <TextBlock Text="   Cerrar"/>
+                </StackPanel>
+            </Button>
+           
+        </StackPanel>
+        <DataGrid AutoGenerateColumns="False" Height="200" Margin="5" Name="datadetalle" Visibility="Collapsed" Grid.Row="3" ItemsSource="{Binding turno.Facturas}" IsReadOnly="True" >
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Reimprimir Cuadre"  Click="MbtnReimprimirCuad_Click"/>
+                    <MenuItem Header="Reimprimir Cuadre"  Click="MbtnReimprimirCuad_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Numero" Binding="{Binding Id}" Width="auto"/>
+                <DataGridTextColumn Header="Fecha" Binding="{Binding FechaEmision,StringFormat='{}{0:dd/MM/yyy}'}" Width="auto"/>
+                <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}" Width="auto"/>
+                <DataGridTextColumn Header="Nombre Cliente" Binding="{Binding NombreCliente}" Width="*"/>
+                <DataGridTextColumn Header="Condición" Binding="{Binding Condicion}" Width="auto"/>
+                <DataGridTextColumn Header="Total" Binding="{Binding Total,StringFormat='{}{0:N}'}" Width="auto"/>
+                <DataGridTextColumn Header="Total Pendiente" Binding="{Binding TotalPendiente,StringFormat='{}{0:N}'}" Width="auto"/>
+                <DataGridTextColumn Header="Efectivo" Binding="{Binding Efectivo,StringFormat='{}{0:N}'}" Width="auto"/>
+                <DataGridTextColumn Header="Tarjeta" Binding="{Binding Tarjeta,StringFormat='{}{0:N}'}" Width="auto"/>
+              
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

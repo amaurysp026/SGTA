@@ -1,0 +1,131 @@
+﻿<Window x:Class="SFCH.View.VNewProducto"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SFCH.View" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Producto" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid x:Name="griddat" Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"  />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.ColumnSpan="4" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="5,5,5,5">Nuevo Producto</TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="0"  Margin="5" Text="{Binding Referencia}" 
+                 materialDesign:HintAssist.Hint="Referencia" FontSize="16" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+        <TextBox Grid.Row="1" Grid.Column="1"  Margin="5" Text="{Binding Referencia}" 
+           materialDesign:HintAssist.Hint="Codigo Fabricante" FontSize="16" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+        <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" CharacterCasing="Upper" Margin="5" Text="{Binding Nombre}"
+         materialDesign:HintAssist.Hint="Nombre del Producto" FontSize="16" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+        <TextBox Grid.Row="1" Grid.Column="4" Margin="5" Text="{Binding Precio}"
+         materialDesign:HintAssist.Hint="Precio RD$" FontSize="16" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+        <TextBox Grid.Row="2" Grid.Column="0" Margin="5" Text="{Binding Costo}"
+         materialDesign:HintAssist.Hint="Costo RD$" FontSize="16" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding CostoUSD}"
+  materialDesign:HintAssist.Hint="Costo USD$" FontSize="16" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+        <TextBox Grid.Row="1" Grid.Column="5" Margin="5" Text="{Binding PrecioUSD}"
+materialDesign:HintAssist.Hint="Precio USD$" FontSize="16" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+        
+            <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="5" Text="{Binding Descripcion}"
+         materialDesign:HintAssist.Hint="Descripción" FontSize="16" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+       
+        <TextBox Grid.Row="2" Grid.Column="5" Margin="5" materialDesign:HintAssist.Hint="Cantidad Minima" FontSize="16" Text="{Binding CantidadMinima}" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+        <ComboBox  Margin="5" Name="dImpuesto"  Grid.Row="2" Grid.Column="4" Style="{StaticResource MaterialDesignOutlinedComboBox}" SelectedIndex="0" materialDesign:HintAssist.Hint="Impuesto">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding NombreImpuesto}"></TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <StackPanel Grid.Row="5" Margin="5" Grid.ColumnSpan="2" >
+            <CheckBox Content="Activo" FontSize="20" IsChecked="{Binding Activo}"  ></CheckBox>
+
+            <CheckBox Content="Servicio" IsChecked="{Binding EsServicio}" FontSize="20"  ></CheckBox>
+            <CheckBox Content="Cambiar Precio" FontSize="20" IsChecked="{Binding CambiarPrecio}" ></CheckBox>
+            <CheckBox Content="Credito" FontSize="20" IsChecked="{Binding AplicaCredito}"  ></CheckBox>
+            <CheckBox Content="Vence" FontSize="20" IsChecked="{Binding Vence}"  ></CheckBox>
+            <CheckBox Content="Stock Negativo" FontSize="20" IsChecked="{Binding PermitirStockNegativo}"  ></CheckBox>
+            <CheckBox Content="Aplica Descuento" FontSize="20" IsChecked="{Binding AplicaDescuento}"  ></CheckBox>
+            <TextBlock Text="{Binding Utilidad,StringFormat='Utilidad RD$: {0:N2}'}" FontSize="20"  />
+            <TextBlock Text="{Binding Stock,StringFormat='Existencia: {0:N2}'}" FontSize="20"  />
+        </StackPanel>
+        <materialDesign:Card BorderThickness="1" Grid.Row="5" Margin="5" Grid.RowSpan="4" Grid.Column="4" Grid.ColumnSpan="2" >
+            <StackPanel>
+                <CheckBox FontSize="20" VerticalContentAlignment="Center" VerticalAlignment="Center" >Producto Compuesto</CheckBox>
+                <Button Margin="5" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Height="50" >
+                    <StackPanel Orientation="Horizontal" >
+                        <materialDesign:PackIcon Width="25" Height="25" Kind="Plus"/>
+                        <TextBlock TextAlignment="Center" VerticalAlignment="Center">Add Nuevo Producto</TextBlock>
+                    </StackPanel>
+                </Button>
+                <DataGrid x:Name="data" >
+
+                </DataGrid>
+                <TextBlock>Consto Total: RD$ 1500 | USD$ 50</TextBlock>
+            </StackPanel>
+        </materialDesign:Card>
+        <ComboBox Name="cbCategoria" Margin="5" Grid.Row="3" Grid.Column="0" SelectedValue="{Binding Categoria}" materialDesign:HintAssist.Hint="Categoria" Style="{StaticResource MaterialDesignOutlinedComboBox}" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Nombre}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button Margin="5" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Height="50" >
+            <StackPanel>
+                <materialDesign:PackIcon Width="25" Height="25" Kind="Plus"/>
+            </StackPanel>
+        </Button>
+        <ComboBox Name="cbUnidad" Margin="5" Grid.Row="3" Grid.Column="2"  SelectedValue="{Binding Unidad}" materialDesign:HintAssist.Hint="Unidad de Venta" Style="{StaticResource MaterialDesignOutlinedComboBox}" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Nombre}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button Margin="5" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" Height="50" >
+            <StackPanel>
+                <materialDesign:PackIcon Width="25" Height="25" Kind="Plus"/>
+            </StackPanel>
+        </Button>
+        <ComboBox Name="cbUnidadCompra"  Grid.Row="3" Grid.Column="4" Margin="5" SelectedValue="{Binding UnidadCompra}" materialDesign:HintAssist.Hint="Unidad de Compra" Style="{StaticResource MaterialDesignOutlinedComboBox}" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Nombre}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button Margin="5" Grid.Row="3" Grid.Column="5" HorizontalAlignment="Left" Height="50" >
+            <StackPanel>
+                <materialDesign:PackIcon Width="25" Height="25" Kind="Plus"/>
+            </StackPanel>
+        </Button>
+        
+        <materialDesign:Card Grid.Row="4" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Background="LightGray" Height="200" Margin="5" >
+            <StackPanel>
+                <Image x:Name="imgp" Width="200" Height="110" Margin="3" >
+                    
+                </Image>
+                <TextBox x:Name="urlimagen" Margin="3" materialDesign:HintAssist.Hint="URL Imagen" Style="{StaticResource MaterialDesignOutlinedTextBox}" ></TextBox>
+                <Button Click="Button_Click" >Cargar Imagen</Button>
+            </StackPanel>
+            
+        </materialDesign:Card>
+        <Button x:Name="btnGuardar" Height="50" Grid.Column="1" Margin="5" Grid.Row="6" Click="Button_Click_2" >Guardad</Button>
+        <Button x:Name="btnCancelar" Height="50" Grid.Column="2" Margin="5" Background="OrangeRed" Grid.Row="6" Click="Button_Click_1" >Cancelar</Button>
+    </Grid>
+</Window>

@@ -1,0 +1,515 @@
+﻿<Window x:Class="SFCH.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SFCH" xmlns:Fluent="urn:fluent-ribbon"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="SGTA - Sistema de Gestion de Taller Automotriz" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+            <RowDefinition Height="auto"  />
+        </Grid.RowDefinitions>
+
+        <Fluent:Ribbon Grid.Row="0" IsDisplayOptionsButtonVisible="True"  Language="Es" Grid.ColumnSpan="2" CanCustomizeQuickAccessToolBar="True"  HorizontalAlignment="Stretch">
+
+            <!--Backstage-->
+            <Fluent:Ribbon.Menu>
+                <Fluent:Backstage  x:Name="archivo"  >
+
+                    <Fluent:BackstageTabControl  >
+                        <Fluent:Button x:Name="btninicio" Click="btninicio_Click"   Header="Inicio" >
+                            <Fluent:Button.Icon>
+                                <materialDesign:PackIcon Kind="Home"></materialDesign:PackIcon>
+                            </Fluent:Button.Icon>
+                        </Fluent:Button>
+
+                        <Fluent:BackstageTabItem x:Name="as" Header="Acerca de">
+
+                            <Grid Margin="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Título -->
+                                <TextBlock Text="Información del Software" FontSize="16" FontWeight="Bold" 
+                   HorizontalAlignment="Center" Margin="0,5,0,10"/>
+
+                                <!-- Versión -->
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Versión:" FontWeight="Bold"/>
+                                    <TextBlock Text=" 0.1.1" Name="txtVersion"/>
+                                </StackPanel>
+
+                                <!-- Usuario conectado -->
+                                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,5">
+                                    <TextBlock Text="Usuario Conectado: " FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding usuariolog.NombreCompleto}" Name="txtUsuario"/>
+                                </StackPanel>
+
+                                <!-- Información legal -->
+                                <TextBlock Grid.Row="3" Text="Todos los derechos reservados. Este software está protegido por leyes de propiedad intelectual." 
+                   TextWrapping="Wrap" FontSize="12" Margin="0,5"/>
+
+                                <!-- Soporte técnico -->
+                                <StackPanel Grid.Row="4" VerticalAlignment="Bottom" Margin="0,10">
+                                    <TextBlock Text="Contacto con Soporte Técnico:" FontWeight="Bold"/>
+                                    <TextBlock Text="Email: amaurys026@hotmail.com" Foreground="Blue"/>
+                                    <TextBlock Text="Tel: +1 829 399 5486"/>
+                                </StackPanel>
+                            </Grid>
+                        </Fluent:BackstageTabItem>
+                        <Fluent:BackstageTabItem Header="Calendario">
+                            <StackPanel Width="500" Margin="100">
+                                <Calendar Style="{StaticResource MaterialDesignCalendarPortrait}" />
+                                <materialDesign:NumericUpDown Style="{StaticResource MaterialDesignOutlinedUpDownBase}" />
+
+                            </StackPanel>
+                        </Fluent:BackstageTabItem>
+                        <Fluent:BackstageTabItem Header="Configuracion" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition/>
+
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <TextBox x:Name="txtNombrecon" materialDesign:HintAssist.Hint="Nombre Comercial" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+                                <Image x:Name="img" Width="300" Stretch="Uniform" Grid.Row="1" ></Image>
+                                <Button Height="50" Grid.Row="2" Click="btnCarImagenInicio_Click" x:Name="btnCarImagenInicio" >Cabmair Imagen Inicio</Button>
+                                <Image x:Name="img2" Width="300" Stretch="Uniform" Grid.Row="3" ></Image>
+                                <Button Height="50" Grid.Row="4" Click="btnCarImagenprint_Click" x:Name="btnCarImagenprint" >Cabmair Imagen Inicio</Button>
+
+                            </Grid>
+                        </Fluent:BackstageTabItem>
+                        <Fluent:SeparatorTabItem></Fluent:SeparatorTabItem>
+
+                        <Fluent:Button x:Name="btnCerrarsecion" Click="btnCerrarsecion_Click"  Header="Cerrar" >
+                            <Fluent:Button.Icon>
+                                <materialDesign:PackIcon Kind="ExitRun"></materialDesign:PackIcon>
+                            </Fluent:Button.Icon>
+                        </Fluent:Button>
+
+                    </Fluent:BackstageTabControl>
+                </Fluent:Backstage>
+
+            </Fluent:Ribbon.Menu  >
+            
+            <Fluent:RibbonTabItem Name="Tabadministracion" Header="Administrar ">
+                <Fluent:RibbonGroupBox Header="Transacciones">
+                    <Fluent:Button x:Name="btnTrIngreso" Click="btnTrIngreso_Click" Padding="5,0" Header="Ingreso">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="BankTransferIn" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btnTrEgreso" Visibility="Collapsed" Click="btnTrEgreso_Click"  Padding="5,0" Header="Egreso">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="BankTransferOut" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+                
+                <Fluent:RibbonGroupBox Header="Cuentas">
+                    <Fluent:Button x:Name="btnCuentas" Click="btnCuentas_Click" Padding="5,0" Header="Cuentas" Height="68" VerticalAlignment="Top">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="Bank" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btnaperturarC" Click="btnaperturarC_Click"  Padding="5,0" Header="Apeturar Cuenta">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="BankAdd" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btnTransacciones" Click="btnTransacciones_Click"  Padding="5,0" Header="Transacciones">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="Transfer" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btnReportTransacciones" Click="btnReportTransacciones_Click"  Padding="5,0" Header="Reporte de Transacciones por fecha">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="ReportArc" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btnReportIngresos" Click="btnReportIngresos_Click"  Padding="5,0" Header="Reporte de Ingresos por Año">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="ReportArc" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+            <Fluent:RibbonTabItem x:Name="GrupPuntoVenta" Header="Punto de Venta">
+                <Fluent:RibbonGroupBox Header="Facturación">
+                    <Fluent:Button x:Name="btntodaslasfacturas"  Click="btntodaslasfacturas_Click" Padding="5,0" Header="Todas las Facturas">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="Invoice" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button Name="btnFacturar" Click="btnFacturar_Click" Padding="5,0" Header="Facturar">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="CashRegister"  Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button  Visibility="Visible" Name="btnEgresoCaja" Click="btnEgresoCaja_Click" Padding="5,0" Header="Egreso de Caja">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="HandCoin" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    
+                    <Fluent:Button  Visibility="Visible" x:Name="btnCerrTurnoActual" Click="btnCerrTurnoActual_Click"  Padding="5,0" Header="Cerrar Turno Actual">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="StoreClock" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button  Visibility="Visible" x:Name="btnturnos" Click="btnTrEgreso_Click"  Padding="5,0" Header="Turno de Usuario">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="ClipboardTextClock" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Name="GrupTractor" Header="Servicios de Tractor">
+                    <Fluent:Button  Padding="5,0" Header="Contratos y Ordenes de trabajo Tractor" Height="68" VerticalAlignment="Top">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="ScriptText" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button  Padding="5,0" Header="Nuevo Contrato" Height="68" VerticalAlignment="Top">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="AddBox" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button  Padding="5,0" Header="Maquinas y Equipos" Height="68" VerticalAlignment="Top">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="Tractor" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+                
+               
+            </Fluent:RibbonTabItem>
+            <!--Tabs-->
+            <Fluent:RibbonTabItem x:Name="TabInventario" Header="Inventario">
+                <Fluent:RibbonGroupBox Name="GrupInventario" Header="Inventario">
+                    <Fluent:Button  Click="btnProductos_Click" x:Name="btnProductos" Padding="5,0" Header="Productos" Height="68" VerticalAlignment="Top">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="Warehouse" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button  x:Name="NewProducto" Click="NewProducto_Click"  Padding="5,0" Header="Nuevo Producto">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="AddBox" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button Visibility="Visible" Name="btnCategoriasp" Click="btnCategoriasp_Click"  Padding="5,0" Header="Categorias Productos">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="ShapePlus" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    
+                    <Fluent:Button Click="btnReportTransacciones_Click" Visibility="Collapsed"  Padding="5,0" Header="Reporte de venta por Producto">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="ReportArc" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+               
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Name="GrupCompras" Header="Compras">
+                    <Fluent:Button x:Name="btnCompraslist"  Click="btnCompraslist_Click" Visibility="Visible" Padding="5,0" Header="Mostrar Compras">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="Marketplace" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btnCompras"  Click="btnCompras_Click" Visibility="Visible" Padding="5,0" Header="Registrar Compras">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="CartArrowUp" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Name="GroupInventarioConteo" Header="Inventario y conteos">
+                    <Fluent:Button x:Name="btnmovinventario" Click="btnmovinventario_Click" Visibility="Visible"  Padding="5,0" Header="Movimientos de Inventario">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="PostItNoteRemove" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btninventarios"  Click="btninventarios_Click" Visibility="Visible" Padding="5,0" Header="Inventarios Conteos">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="Table" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btninventariar"  Click="btninventariar_Click" Visibility="Visible" Padding="5,0" Header="Inventariar">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="Table" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+<!-- Inventario-->
+
+            <Fluent:RibbonTabItem Name="TabTaller" Header="Taller">
+                <Fluent:RibbonGroupBox Header="Recepción de Vehiculos">
+                    <Fluent:Button x:Name="btnRecep"  Padding="5,0" Header="Recepciones Vehiculos">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="FileTable" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="bt"  Padding="5,0" Header="Asignación Trabajo">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="Work" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btnNew"  Padding="5,0" Header="Nueva Recepción Vehiculo">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="AddBox" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Entrega y Despachos">
+                    <Fluent:Button  Padding="5,0" Header="Vehiculos Despachados">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="ClipboardListOutline" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button  Padding="5,0" Header="Requisicion de Piezas">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="SwapVerticalCircle" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button  Padding="5,0" Header="Penalidades">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="PoliceBadge" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Lubricantes">
+                    <Fluent:Button x:Name="btnrezzer"   Padding="5,0" Header="Tanques Lubricantes">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="StorageTank" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btn58" Padding="5,0" Header="Recolección de Lubricante">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="TankerTruck" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+
+            <Fluent:RibbonTabItem Name="TabAcopio" Header="Acopio">
+                <Fluent:RibbonGroupBox Header="Recepción de Leche">
+                    <Fluent:Button x:Name="btnRecepciones" Click="btnRecepciones_Click" Padding="5,0" Header="Recepciones">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="FileTable" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btn" Click="btn_Click" Padding="5,0" Header="Registro de Leche">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="PailPlus" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btnNewRecepcion" Click="btnNewRecepcion_Click"  Padding="5,0" Header="Nueva Recepción">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="AddBox" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Liquidación">
+                    <Fluent:Button  Padding="5,0" Header="Liquidaciones">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="ClipboardListOutline" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button  Padding="5,0" Header="Ajuste de cuentas">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="SwapVerticalCircle" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button  Padding="5,0" Header="Penalidades">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="PoliceBadge" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Frezzer">
+                    <Fluent:Button x:Name="btnFrezzer"  Click="btnFrezzer_Click" Padding="5,0" Header="Frezzer">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="StorageTank" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btn458" Click="btn_Click" Padding="5,0" Header="Recolección de Leche">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="TankerTruck" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                   
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+            
+            <Fluent:RibbonTabItem x:Name="GrupContabilidad" Header="Contabilidad">
+                <Fluent:RibbonGroupBox Header="Cuentas Por Cobrar">
+                    <Fluent:Button x:Name="btncxccliente" Click="btncxccliente_Click"  Padding="5,0" Header="Cuentas Por Cobrar Clientes">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="Coins" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btnPagocxc" Click="btnPagocxc_Click" Padding="5,0" Header="Registrar Pago CxC">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="CoinsPlus"  Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Prestamos a Socios">
+                    <Fluent:Button x:Name="btnSocios" Click="btnSocios_Click_1" Padding="5,0" Header="Socios">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="User" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+            <Fluent:RibbonTabItem x:Name="TabEntidades" Header="Entidades">
+                <Fluent:RibbonGroupBox Visibility="Collapsed"  Header="Socios">
+                    <Fluent:Button Padding="5,0" Header="Socios">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="User" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btnnewSocio" Click="btnnewSocio_Click"  Padding="5,0" Header="Nuevo Socio">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="AddBox" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header=" Clientes">
+                    <Fluent:Button x:Name="btnSup" Click="btnSocios_Click_1" Padding="5,0" Header="Clientes">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="User" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btnnewSupl" Click="btnnewSocio_Click"  Padding="5,0" Header="Nuevo Cliente">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="AddBox" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Comercio">
+                    <Fluent:Button x:Name="btnProveedor" Click="btnProveedor_Click" Padding="5,0" Header="Proveedores">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="User" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btnnewProveedor" Click="btnnewProveedor_Click"  Padding="5,0" Header="Nuevo Proveedor">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="AddBox" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+            <Fluent:RibbonTabItem x:Name="GroupHerramientas" Header="Herramientas">
+                <Fluent:RibbonGroupBox Header="Entidades">
+                   
+                    <Fluent:Button x:Name="btnnewEntidad" Click="btnnewEntidad_Click"  Padding="5,0" Header="Nueva Entidad">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="AddBox" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+            
+            <!--Configuracion-->
+            <Fluent:RibbonTabItem x:Name="GrouConfiguracion" Header="Configuración">
+                <Fluent:RibbonGroupBox Header="--">
+                    <Fluent:Button x:Name="btnConfiguracion"  Padding="5,0" Header="General">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="Settings" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btnne"  Padding="5,0" Header="Ajuste Local">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="SettingsVertical" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    
+                    <Fluent:Button x:Name="btnAddUsuario" Click="btnAddUsuario_Click" Padding="5,0" Header="Nuevo Usuario">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="Add" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btnusuario" Click="btnUsuarios_Click"  Padding="5,0" Header="Usuarios">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="User" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Acerca de">
+                    <Fluent:Button  Padding="5,0" Header="Buscar Actualizaciones ">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="Update" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button  Padding="5,0" Header="Información de versión">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="InfoBoxOutline" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button  Padding="5,0" Header="Ayuda y Soporte">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="HelpBoxOutline" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="btnBackUps" Click="btnBackUps_Click"  Padding="5,0" Header="BackUp o Copia de Seguridad">
+                        <Fluent:Button.LargeIcon>
+                            <materialDesign:PackIcon Kind="BackupOutline" Width="30" Height="30"></materialDesign:PackIcon>
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+        </Fluent:Ribbon>
+
+
+
+        <Frame  Style="{StaticResource  Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl}"  Name="FrameInicio" Grid.Row="1"></Frame>
+        <StatusBar Grid.Row="2" Background="LightGray">
+            <StatusBarItem>Systema Financiero CH |</StatusBarItem>
+            <StatusBarItem >
+                <TextBlock x:Name="txtbar">
+
+                </TextBlock>
+            </StatusBarItem>
+            <StatusBarItem >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="txtnum">
+
+                    </TextBlock>
+          
+                </StackPanel>
+                
+            </StatusBarItem>
+            <StatusBarItem >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="txtUsuariobar">
+
+                    </TextBlock>
+
+                </StackPanel>
+
+            </StatusBarItem>
+        </StatusBar>
+
+    </Grid>
+</Window>
+

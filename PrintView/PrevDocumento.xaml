@@ -1,0 +1,36 @@
+﻿<Window x:Class="SFCH.PrintView.PrevDocumento"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SFCH.PrintView" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+         Title="FlowDocument Demo" Height="600" Width="850" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Margin="5" Grid.Column="0" Click="Button_Click" Height="50" >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" FontSize="20" >Imprimir </TextBlock>
+                    <materialDesign:PackIcon Kind="Printer" Width="30" Height="30" />
+                </StackPanel>
+            </Button>
+            <Button Margin="5" Grid.Column="1" Click="Button_Click_1" Height="50" >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" FontSize="20" >PDF </TextBlock>
+                    <materialDesign:PackIcon Kind="FileDocument " Width="30" Height="30" />
+                </StackPanel>
+            </Button>
+        </Grid>
+        <FlowDocumentScrollViewer Grid.Row="1" Name="docViewer"/>
+    </Grid>
+</Window>
