@@ -9,11 +9,11 @@
     <AssemblyVersion>2.546</AssemblyVersion>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <PackageIcon>logo.jpg</PackageIcon>
-    <ApplicationIcon>image001.ico</ApplicationIcon>
+    <ApplicationIcon>Logo_SGTA.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="image001.ico" />
+    <Content Include="Logo_SGTA.ico" />
     <Content Include="logo.jpg" />
   </ItemGroup>
 

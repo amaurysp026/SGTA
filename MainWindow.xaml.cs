@@ -6,22 +6,23 @@ using SFCH.Logica;
 using SFCH.Model;
 using SFCH.PrintView;
 using SFCH.View;
+using SFCH.View;
+using SGTA.View;
 using System.IO;
 using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Windows;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using SFCH.View;
 
 namespace SFCH
 {
@@ -425,6 +426,11 @@ namespace SFCH
         private void btnPagocxc_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void btnRecep_Click(object sender, RoutedEventArgs e)
+        {
+            FrameInicio.Navigate(new PRecepVehiculo());
         }
     }
 }

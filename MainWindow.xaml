@@ -259,7 +259,7 @@
 
             <Fluent:RibbonTabItem Name="TabTaller" Header="Taller">
                 <Fluent:RibbonGroupBox Header="Recepción de Vehiculos">
-                    <Fluent:Button x:Name="btnRecep"  Padding="5,0" Header="Recepciones Vehiculos">
+                    <Fluent:Button x:Name="btnRecep"  Padding="5,0" Click="btnRecep_Click" Header="Recepciones Vehiculos">
                         <Fluent:Button.LargeIcon>
                             <materialDesign:PackIcon Kind="FileTable" Width="30" Height="30"></materialDesign:PackIcon>
                         </Fluent:Button.LargeIcon>
