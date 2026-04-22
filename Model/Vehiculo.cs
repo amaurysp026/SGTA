@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SFCH.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,7 +17,8 @@ namespace SGTA.Model
         public string FiltroCombustible { get; set; } = "";
         public string FiltroCabina { get; set; } = "";
         public string Color { get; set; }   = string.Empty;
-        public bool EnTaller { get; set; }=false;
+        public bool EnTaller { get; set; }=true;
+        public virtual Persona? Persona { get; set; }
         public virtual List<MantVehiculo> MantVehiculos { get; set; } = new List<MantVehiculo>();
     }
 }

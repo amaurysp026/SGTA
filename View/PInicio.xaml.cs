@@ -98,6 +98,10 @@ namespace SFCH.View
               //  FechaInicio.Text = Util.TiempoEnRed().ToString("dd/MM/yyyy");
 
                 FechaInicio.Text = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("America/Santo_Domingo")).ToString("dd/MM/yyyy");
+                img.Source = Util.LoadImage(SesionUsuario.Configuracion.LogoPrincipal??new byte[1]);
+                txtSaludoUsuario.Text = SesionUsuario.Configuracion.NombreComercial;
+                txtNombreEmpresa.Text = SesionUsuario.Configuracion.NombreEmpresa;
+
             }
             catch (Exception ex)
             {
@@ -107,10 +111,7 @@ namespace SFCH.View
             }
            
 
-                img.Source = Util.LoadImage(SesionUsuario.Configuracion.LogoPrincipal);
-                txtSaludoUsuario.Text = SesionUsuario.Configuracion.NombreComercial;
-                txtNombreEmpresa.Text = SesionUsuario.Configuracion.NombreEmpresa;
-         
+               
 
 
            

@@ -107,7 +107,7 @@
 
             </Fluent:Ribbon.Menu  >
             
-            <Fluent:RibbonTabItem Name="Tabadministracion" Header="Administrar ">
+            <Fluent:RibbonTabItem Name="Tabadministraciono" Header="Administrar ">
                 <Fluent:RibbonGroupBox Header="Transacciones">
                     <Fluent:Button x:Name="btnTrIngreso" Click="btnTrIngreso_Click" Padding="5,0" Header="Ingreso">
                         <Fluent:Button.LargeIcon>
@@ -149,7 +149,7 @@
                     </Fluent:Button>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
-            <Fluent:RibbonTabItem x:Name="GrupPuntoVenta" Header="Punto de Venta">
+            <Fluent:RibbonTabItem x:Name="GrupPuntoVenta" Header="Facturación">
                 <Fluent:RibbonGroupBox Header="Facturación">
                     <Fluent:Button x:Name="btntodaslasfacturas"  Click="btntodaslasfacturas_Click" Padding="5,0" Header="Todas las Facturas">
                         <Fluent:Button.LargeIcon>

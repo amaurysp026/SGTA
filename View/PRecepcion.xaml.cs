@@ -22,17 +22,17 @@ namespace SFCH.View
     /// </summary>
     public partial class PRecepcion : Page, INotifyPropertyChanged
     {
-        public RecepcionLeche RecepcionLeche { get; set; }= new RecepcionLeche();
-        public Freezer Freezer { get; set; } = new Freezer();
+        public x RecepcionLeche { get; set; }= new x();
+        public f Freezer { get; set; } = new f();
         private IEntidad entidad= new EntidadesService();
-        private IRecepcion recepcion = new RecepcionService();
+       // private IRecepcion recepcion = new RecepcionService();
         private class FreezerSummary
         {
-            public Freezer Freezer { get; set; }
+            public f Freezer { get; set; }
             public decimal TotalLitros { get; set; }
         };
         private bool ActualizandoR=false;
-        private DetalleRecepcionLeche reg = new DetalleRecepcionLeche();
+        private xd reg = new xd();
         public PRecepcion()
         {
             InitializeComponent();
@@ -44,16 +44,16 @@ namespace SFCH.View
         }
         private async void Cargar()
         {
-            var r = await recepcion.ObtenerRecepcionesLecheAsync();
-            if (r==null)
+           // var r = await recepcion.ObtenerRecepcionesLecheAsync();
+            if (true)
             {
                 MessageBox.Show("Ninguna Recepcion encontrada");
                 return;
             }
             // MessageBox.Show("Recepción cargada con éxito "+r.Id);
             cbf.ItemsSource = null;
-            cbf.ItemsSource = await recepcion.ObtenerFreezersAsync();
-            RecepcionLeche = r.LastOrDefault()??new RecepcionLeche() ;
+          //  cbf.ItemsSource = await recepcion.ObtenerFreezersAsync();
+           // RecepcionLeche = r.LastOrDefault()??new x() ;
             txttlitros.Text = (RecepcionLeche.Detalles.Sum(x => x.Litros)).ToString("N2");
             txttRegistro.Text = RecepcionLeche.Detalles.Count.ToString();
             var resumen = RecepcionLeche.Detalles
@@ -82,7 +82,7 @@ namespace SFCH.View
         }
         private async void Actualizardatos()
         {
-            RecepcionLeche = await recepcion.OptenerRecepcionLechePorIdAsync(RecepcionLeche.Id);
+           // RecepcionLeche = await recepcion.OptenerRecepcionLechePorIdAsync(RecepcionLeche.Id);
             txtlitros.Text = string.Empty;
             txtcodigo.Text = string.Empty;
             txtnombre.Text = string.Empty;
@@ -92,7 +92,7 @@ namespace SFCH.View
             data.ItemsSource = RecepcionLeche.Detalles.OrderByDescending(x=>x.Id);
             datalitros.ItemsSource = null;
             datalitros.ItemsSource = RecepcionLeche.Detalles.OrderByDescending(x => x.Id);
-            reg = new DetalleRecepcionLeche();
+            reg = new xd();
 
             var resumen = RecepcionLeche.Detalles
                 .GroupBy(r => r.Freezer)
@@ -111,15 +111,15 @@ namespace SFCH.View
 
         private async void btnNewRecepcion_Click(object sender, RoutedEventArgs e)
         {
-            var n=new RecepcionLeche()
+            var n=new x()
             {
                 Fecha=DateTime.Now,
             };
-           if(  await recepcion.GuardarRecepcionLecheAsync(n,DateTime.Now))
+           if( true) //await recepcion.GuardarRecepcionLecheAsync(n,DateTime.Now))
              {
                  MessageBox.Show("Recepción guardada con éxito");
-                 var re= await recepcion.ObtenerRecepcionesLecheAsync();
-                 RecepcionLeche = re.LastOrDefault() ?? new RecepcionLeche();
+              //   var re= await recepcion.ObtenerRecepcionesLecheAsync();
+              //   RecepcionLeche = re.LastOrDefault() ?? new x();
                  PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RecepcionLeche)));
              }
              else
@@ -151,11 +151,11 @@ namespace SFCH.View
                     return;
                 }
                
-                var detalle = (DetalleRecepcionLeche)data.SelectedItem;
+                var detalle = (xd)data.SelectedItem;
                 detalle.Litros = litros;
-                detalle.Freezer = cbf.SelectedItem as Freezer ?? new Freezer();
-                var resf = await recepcion.EditarRegistroAsync(detalle);
-                if (resf != null)
+                detalle.Freezer = cbf.SelectedItem as f ?? new f();
+               // var resf = await recepcion.EditarRegistroAsync(detalle);
+                if (true)
                 {
                     MessageBox.Show("Registro actualizado con éxito", "Aviso!", MessageBoxButton.OK, MessageBoxImage.Error);
                     Actualizardatos();
@@ -192,7 +192,7 @@ namespace SFCH.View
                     txtlitros.Focus();
                     return;
                 }
-                if(cbf.SelectedItem as Freezer == null)
+                if(cbf.SelectedItem as f == null)
                 {
                     MessageBox.Show("Seleccione un freezer", "Aviso!", MessageBoxButton.OK, MessageBoxImage.Information);
                     cbf.Focus();
@@ -214,11 +214,11 @@ namespace SFCH.View
                 reg.Litros = litros;
                 reg.RecepcionLeche = RecepcionLeche;
                 reg.Tanda = RecepcionLeche.Tanda;
-                reg.Freezer = cbf.SelectedItem as Freezer;
+                reg.Freezer = cbf.SelectedItem as f;
                
-                var resf = await recepcion.GuardarRegistro(reg);
+             //   var resf = await recepcion.GuardarRegistro(reg);
                 //  MessageBox.Show(resf.Id.ToString());
-                RecepcionLeche.Detalles.LastOrDefault()?.Id = resf.Id;
+             //   RecepcionLeche.Detalles.LastOrDefault()?.Id = resf.Id;
                 
                 //txttlitros.Text = (RecepcionLeche.Detalles.Sum(x => x.Litros)).ToString("N2");
                 data.ItemsSource = null;
@@ -314,7 +314,7 @@ namespace SFCH.View
         {
             if (data.SelectedItem != null)
             {
-                var detalle = (DetalleRecepcionLeche)data.SelectedItem;
+                var detalle = (xd)data.SelectedItem;
                 
                 txtcodigo.Text = detalle.Proveedor.Codigo ?? string.Empty;
                 txtnombre.Text = detalle.Proveedor.NombreCompleto;
@@ -331,11 +331,11 @@ namespace SFCH.View
         {
             if (data.SelectedItem != null)
             {
-                var detalle = (DetalleRecepcionLeche)data.SelectedItem;
+                var detalle = (xd)data.SelectedItem;
                 var result = MessageBox.Show("¿Está seguro de que desea anular este registro?", "Confirmar Anulación", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
-                 if(  await recepcion.AnularRegistroAsync(detalle))
+                 if(  true)
                         MessageBox.Show("Registro anulado con éxito");
                     else
                         MessageBox.Show("Error al anular el registro");

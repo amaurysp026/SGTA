@@ -9,64 +9,101 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PRecepVehiculo">
 
-    <Grid Background="White" >
-        <StackPanel Margin="20">
-            <!-- Título -->
-            <TextBlock Text="Recepción de Vehículos" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+    <Grid Margin="5" Background="White" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="400"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!-- Título -->
+        <TextBlock Text="Recepción de Vehículos" HorizontalAlignment="Center" Margin="3" FontSize="20" FontWeight="Bold" />
 
-            <!-- Sección de Búsqueda -->
-            <GroupBox Header="Búsqueda de Vehículo" Margin="0,0,0,15" Padding="10">
-                <StackPanel>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="100"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0" x:Name="TxtPlaca" Padding="8" Height="35"/>
-                        <Button Grid.Column="1" Content="Buscar" Margin="10,0,0,0" Padding="10" Click="Button_Click"/>
-                    </Grid>
-                </StackPanel>
-            </GroupBox>
-
-            <!-- Sección de Datos del Vehículo -->
-            <GroupBox Header="Datos del Vehículo" Margin="0,0,0,15" Padding="10">
+        <!-- Sección de Búsqueda -->
+        <GroupBox Margin="5" Grid.Row="1" Visibility="Collapsed" Header="Búsqueda de Vehículo">
+            <StackPanel>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="100"/>
                     </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <!-- Fila 1 -->
-
-                    <TextBox materialDesign:HintAssist.Hint="Placa Vehículo" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtPlacaVehiculo" Padding="8" Height="30" IsReadOnly="True"/>
-
-                    <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Text="Marca:" FontWeight="Bold"/>
-                    <TextBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" x:Name="TxtMarca" Padding="8" Height="30"/>
-                        <TextBlock Text="Modelo:" FontWeight="Bold" />
-                        <TextBox materialDesign:HintAssist.Hint="Modelo Vehiculo" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtModelo" Padding="8" Height="30"/>
-
-                    <TextBox Grid.Column="1" Grid.Row="1"  materialDesign:HintAssist.Hint="Año" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtAño" Padding="8" Height="30"/>
-                    <TextBox  Grid.Column="1" Grid.Row="2" materialDesign:HintAssist.Hint="Placa Vehículo" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtVIN" Padding="8" Height="30"/>
-                    <!-- Fila 4 -->
-                    <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="0,0,0,10">
-                        <TextBlock Text="Observaciones:" FontWeight="Bold" Margin="0,0,0,5"/>
-                        <TextBox materialDesign:HintAssist.Hint="Placa Vehículo" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtObservaciones" Padding="8" Height="60" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
-                    </StackPanel>
+                    <TextBox Grid.Column="0" Margin="5" materialDesign:HintAssist.Hint="Buscar Placa" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtPlaca"/>
+                    <Button Grid.Column="1" Content="Buscar" Height="50" Margin="5"  Click="Button_Click"/>
+                    <Button Grid.Column="2" Content="Registrar Cliente" Height="50" Margin="5"  Click="Button_Click"/>
+                    <Button Grid.Column="3" Content="Clientes" Height="50" Margin="5"  Click="Button_Click"/>
                 </Grid>
-            </GroupBox>
-
-            <!-- Sección de Botones -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-                <Button Content="Guardar" Width="100" Padding="10" Margin="0,0,10,0" Background="#4CAF50" Foreground="White"/>
-                <Button Content="Limpiar" Width="100" Padding="10" Margin="0,0,10,0" Background="#2196F3" Foreground="White"/>
-                <Button Content="Cancelar" Width="100" Padding="10" Background="#f44336" Foreground="White"/>
             </StackPanel>
+        </GroupBox>
+
+        <!-- Sección de Datos del Vehículo -->
+        <GroupBox Grid.Row="2" Header="Datos del Vehículo" Margin="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Fila 1 -->
+
+                <TextBox Grid.Column="0" Grid.Row="0" Text="{Binding vh.Marca}"  Margin="5" materialDesign:HintAssist.Hint="Marca" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtModelo"/>
+                <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding vh.Modelo}"  Margin="5" materialDesign:HintAssist.Hint="Modelo"  Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtMarca"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding vh.Placa}" Margin="5" materialDesign:HintAssist.Hint="Placa Vehículo" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtPlacaVehiculo"  />
+
+                <TextBox Grid.Column="0" Margin="5" Grid.Row="1" Text="{Binding vh.Año}"  materialDesign:HintAssist.Hint="Año" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtAño"/>
+                <TextBox Grid.Column="0" Name="txtprop" Grid.Row="2" Margin="5" materialDesign:HintAssist.Hint="Propietario" Style="{StaticResource MaterialDesignOutlinedTextBox}" >
+                
+                </TextBox>
+                <Button Grid.Column="2" Grid.Row="2" Height="50" Content="Agregar Propietario" x:Name="btnbuscarpro" Click="btnbuscarpro_Click">
+                    
+                </Button>
+                <!-- Fila 4 -->
+
+                <TextBox Margin="5" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"  materialDesign:HintAssist.Hint="Observaciones" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtObservaciones" Padding="8" Height="60" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+
+            </Grid>
+        </GroupBox>
+       
+        <GroupBox Grid.Column="1" Grid.Row="2" Margin="5" Header="Vehiculos en Taller"  >
+            <ListView x:Name="data">
+             <ListView.ContextMenu>
+     <ContextMenu>
+         <MenuItem Header="Despachar Vehiculo" Click="MenuItem_Click">
+             <MenuItem.Icon>
+                 <materialDesign:PackIcon Kind="CarBack"  Foreground="Red"/>
+             </MenuItem.Icon>
+         </MenuItem>
+
+     </ContextMenu>
+ </ListView.ContextMenu>
+                <ListView.View>
+                    
+                    <GridView>
+                        <GridViewColumn Header="Nombre" DisplayMemberBinding="{Binding Persona.Nombre}" Width="auto"/>
+                        <GridViewColumn Header="Placa" DisplayMemberBinding="{Binding Placa}" Width="100"/>
+                        <GridViewColumn Header="Marca" DisplayMemberBinding="{Binding Marca}" Width="150"/>
+                        <GridViewColumn Header="Modelo" DisplayMemberBinding="{Binding Modelo}" Width="150"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+        <!-- Sección de Botones -->
+        <StackPanel Grid.Row="4"  Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button Content="Registrar" Click="Button_Click_1" Width="100" Height="50" Margin="5" Background="#4CAF50" Foreground="White"/>
+            <Button Content="Limpiar" Width="100" Height="50"  Margin="5" Background="#2196F3" Foreground="White"/>
+            <Button Content="Cancelar" Width="100" Height="50" Margin="5" Background="#f44336" Foreground="White"/>
         </StackPanel>
+
     </Grid>
 </Page>

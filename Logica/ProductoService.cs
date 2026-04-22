@@ -294,6 +294,11 @@ namespace SFCH.Logica
 
         public async Task<List<Impuesto>> ObtenerImpuesto()
         {
+            if (db.Impuestos.Count()==0)
+            {
+                await db.Impuestos.AddAsync(new Impuesto { NombreImpuesto = "ITBIS", Porcentaje = 18 });
+            await db.SaveChangesAsync();
+            }
         return  await db.Impuestos.ToListAsync();
         }
 

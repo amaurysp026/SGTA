@@ -14,7 +14,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ComboBox x:Name="cbUsuarios" ItemsSource="{Binding usuarios}" Width="200" Height="30" Margin="10"/>
-        <DataGrid x:Name="data"  RowEditEnding="Data_RowEditEnding" ItemsSource="{Binding usuarios}" Grid.Row="1" Margin="10">
+        <DataGrid CanUserAddRows="False" x:Name="data"  RowEditEnding="Data_RowEditEnding" ItemsSource="{Binding usuarios}" Grid.Row="1" Margin="10">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Guardar Cambios" Click="MenuItem_Click"/>

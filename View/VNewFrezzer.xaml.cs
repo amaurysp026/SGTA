@@ -18,9 +18,9 @@ namespace SFCH.View
     /// </summary>
     public partial class VNewFrezzer : Window
     {
-        public Freezer freezerrespuesta { get; set; }
+        public f freezerrespuesta { get; set; }
         public bool Editando { get; set; } = false; 
-        public VNewFrezzer( Freezer freezer)
+        public VNewFrezzer( f freezer)
         {
             InitializeComponent();
             freezerrespuesta = freezer;
@@ -32,7 +32,7 @@ namespace SFCH.View
         public VNewFrezzer()
         {
             InitializeComponent();
-            freezerrespuesta = new Freezer();
+            freezerrespuesta = new f();
             txtcapacidad.Text = freezerrespuesta.CapacidadTotal.ToString();
             txtdescripcion.Text = freezerrespuesta.Descripcion;
             txtNumero.Text = freezerrespuesta.Numero;

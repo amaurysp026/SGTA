@@ -9,7 +9,7 @@ namespace SFCH.IService
 {
     public interface IFactura
     {
-        Task<bool> GuardarFactura(Factura factura);
+        Task<bool> GuardarFactura(Factura factura,bool sindetalle=false);
         Task<bool> ActualizarFactura(Factura factura);
         Task<List<Factura>> ObtenerFacturas();
         Task<bool> ImprimirFactura(Factura factura, bool Prev = false);

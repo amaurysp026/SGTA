@@ -19,7 +19,7 @@ namespace SFCH.View
     /// </summary>
     public partial class PFrezzer : Window
     {
-        IRecepcion recepcion = new Logica.RecepcionService();
+       // IRecepcion recepcion = new Logica.RecepcionService();
         public PFrezzer()
         {
             InitializeComponent();
@@ -29,8 +29,8 @@ namespace SFCH.View
         {
             try
             {
-                var freezers = await recepcion.ObtenerFreezersAsync();
-                data.ItemsSource = freezers;
+               // var freezers = await recepcion.ObtenerFreezersAsync();
+             //   data.ItemsSource = freezers;
             }
             catch (Exception ex)
             {
@@ -43,27 +43,27 @@ namespace SFCH.View
             VNewFrezzer vNewFrezzer = new VNewFrezzer();
             if (vNewFrezzer.ShowDialog()==true)
             {
-               if(await recepcion.GuardarFreezer(vNewFrezzer.freezerrespuesta)==true)
-                {
-                   Window_Loaded();
-                }
+              // if(await recepcion.GuardarFreezer(vNewFrezzer.freezerrespuesta)==true)
+               // {
+               //    Window_Loaded();
+               // }
                 ;
             }
         }
 
         private async void btneditar_Click(object sender, RoutedEventArgs e)
         {
-            if (data.SelectedItem is Freezer fr) {
+            if (data.SelectedItem is f fr) {
                 VNewFrezzer vNewFrezzer = new VNewFrezzer(fr);
                // vNewFrezzer.freezerrespuesta = fr;
                 if (vNewFrezzer.ShowDialog() == true)
                 {
 
-                    if (await recepcion.GuardarFreezer(vNewFrezzer.freezerrespuesta) == true)
-                    {
-                        Window_Loaded();
-                    }
-                    ;
+                  //  if (await recepcion.GuardarFreezer(vNewFrezzer.freezerrespuesta) == true)
+                  //  {
+                    //    Window_Loaded();
+                   // }
+                    //;
                 }
             }
             

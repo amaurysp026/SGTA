@@ -26,7 +26,7 @@ namespace SFCH.Model
         public int DiasCredito { get; set; }=15;
         public bool Socio { get; set; }=false;
         public TipoEntidadAso? TipoEntidadAso { get; set; }
-        public virtual List<DetalleRecepcionLeche>  DetalleRecepcionLeches { get; set; } = new List<DetalleRecepcionLeche>();
+        public virtual List<xd>  DetalleRecepcionLeches { get; set; } = new List<xd>();
         public virtual ICollection<CxC> CxCs { get; set; } = new List<CxC>();
         public decimal Deuda=> CxCs.Where(x => x.Pagado == false && x.Anulado == false).Sum(x => x.MontoPendiente);
         public bool Activo { get; set; }=true;
