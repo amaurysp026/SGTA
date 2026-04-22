@@ -19,8 +19,8 @@ namespace SFCH.View
     /// </summary>
     public partial class VBuscarRecepcion : Window
     {
-        IRecepcion recepcion = new Logica.RecepcionService();
-        public RecepcionLeche RecepcionLeche { get; set; }=new RecepcionLeche();
+        //IRecepcion recepcion = new Logica.RecepcionService();
+        public x RecepcionLeche { get; set; }=new x();
         public VBuscarRecepcion()
         {
             InitializeComponent();
@@ -29,8 +29,8 @@ namespace SFCH.View
         private async void Cargar()
         {
            
-            var lista = await recepcion.ObtenerRecepcionesLecheAsync();
-            data.ItemsSource = lista;
+          //  var lista = await recepcion.ObtenerRecepcionesLecheAsync();
+           // data.ItemsSource = lista;
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -41,7 +41,7 @@ namespace SFCH.View
         {
             if (data.SelectedItem != null)
             {
-                RecepcionLeche = (RecepcionLeche)data.SelectedItem;
+                RecepcionLeche = (x)data.SelectedItem;
                 this.DialogResult = true;
                 this.Close();
             }

@@ -26,24 +26,28 @@ namespace SFCH.Logica
     {
         Conexion db = new Conexion();
 
-        public async Task<bool> GuardarFactura(Factura factura)
+        public async Task<bool> GuardarFactura(Factura factura, bool sindetalle = false)
         {
             if (factura.TotalPendiente>0&& factura.ClienteP == null)
             {
                 MessageBox.Show("No es posible el credito a Cliente Genérico", "Aviso!", MessageBoxButton.OK, MessageBoxImage.Stop);
                 return false;
             }
-            if (factura.Detalles.Count() < 1 || factura.Total < 0)
+            if (!sindetalle)
             {
-                MessageBox.Show("No es posible guardar una factura sin elementos", "Aviso!", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
+                if (factura.Detalles.Count() < 1 || factura.Total < 0)
+                {
+                    MessageBox.Show("No es posible guardar una factura sin elementos En detalle", "Aviso!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                if (factura.Total <= 0)
+                {
+                    MessageBox.Show("El monto de la factura es irregular y no se puede guardar", "Aviso!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    await db.Database.RollbackTransactionAsync();
+                    return false;
+                }
             }
-            if (factura.Total <= 0)
-            {
-                MessageBox.Show("El monto de la factura es irregular y no se puede guardar", "Aviso!", MessageBoxButton.OK, MessageBoxImage.Error);
-                await db.Database.RollbackTransactionAsync();
-                return false;
-            }
+           
             var cxc=new CxC();
             await db.Database.BeginTransactionAsync();
             try

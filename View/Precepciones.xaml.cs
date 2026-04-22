@@ -21,7 +21,7 @@ namespace SFCH.View
     /// </summary>
     public partial class Precepciones : Page
     {
-        IRecepcion recepcion=new RecepcionService();
+        //IRecepcion recepcion=new RecepcionService();
         public Precepciones()
         {
             InitializeComponent();
@@ -29,8 +29,8 @@ namespace SFCH.View
         }
         private async void Cargar()
         {
-            var lista = await recepcion.ObtenerRecepcionesLecheAsync();
-            data.ItemsSource = lista;
+          //  var lista = await recepcion.ObtenerRecepcionesLecheAsync();
+           // data.ItemsSource = lista;
             dap.DisplayDateStart= DateTime.Now.AddDays(-7);
             dap.DisplayDateEnd= DateTime.Now;
         }
@@ -56,9 +56,9 @@ namespace SFCH.View
                     return;
                 }
                ;
-                var r = new RecepcionLeche();
+                var r = new x();
                 r.Tanda = cbtanda.SelectedValuePath.ToString() ?? string.Empty;
-                await  recepcion.GuardarRecepcionLecheAsync(r, selectedDate.Date);
+            //    await  recepcion.GuardarRecepcionLecheAsync(r, selectedDate.Date);
                 Cargar();
             }
             else

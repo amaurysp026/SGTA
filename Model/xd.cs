@@ -4,10 +4,10 @@ using System.Text;
 
 namespace SFCH.Model
 {
-    public class DetalleRecepcionLeche
+    public class xd
     {
         public int Id { get; set; }
-        public virtual RecepcionLeche RecepcionLeche { get; set; } = null!;
+        public virtual x RecepcionLeche { get; set; } = null!;
         public virtual Entidad Proveedor { get; set; } = null!;
         public DateTime Fecha { get; set; }
         public DateTime FechaEmision { get; set; } = DateTime.Now;
@@ -17,7 +17,7 @@ namespace SFCH.Model
         {
             get; set;   
         } 
-        public virtual Freezer? Freezer { get; set; } = null;
+        public virtual f? Freezer { get; set; } = null;
         public decimal SolidosTotales { get; set; }
         public decimal PrecioPorLitro { get; set; }
         public decimal Monto { get; set; }

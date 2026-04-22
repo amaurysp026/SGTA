@@ -59,6 +59,8 @@ namespace SFCH.Logica
 
         public async Task<List<Categoria>> ObtenerCategorias()
         {
+           
+
             return await db.Categorias.Include(x=>x.Productos).AsNoTracking().Where(x=>x.Activo).ToListAsync();
         }
         public async Task<bool> GuardarActualizar(Categoria categoria)

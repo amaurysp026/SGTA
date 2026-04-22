@@ -38,15 +38,17 @@ namespace SFCH
             InitializeComponent();
             // Registrar el evento Loaded para navegar cuando la ventana esté lista
              InitializeAsync();
-            if (Ganadero)
-            {
-                Tabadministracion.Visibility = Visibility.Collapsed;
-                TabAcopio.Visibility = Visibility.Visible;
+            //if (Ganadero)
+            //{
+            //    Tabadministraciono.Visibility = Visibility.Collapsed;
+            //    TabAcopio.Visibility = Visibility.Visible;
                 
-            }
+            //}
+                Tabadministraciono.Visibility = Visibility.Collapsed;
+
             TabAcopio.Visibility = SesionUsuario.Usuario.Acopio ? Visibility.Visible : Visibility.Collapsed;
-            Tabadministracion.Visibility = SesionUsuario.Usuario.Administrador ? Visibility.Visible : Visibility.Collapsed;
-            GrouConfiguracion.Visibility = SesionUsuario.Usuario.Configuracion ? Visibility.Visible : Visibility.Collapsed;
+          //  Tabadministracion.  Visibility = SesionUsuario.Usuario.Administrador ? Visibility.Visible : Visibility.Collapsed;
+            GrouConfiguracion.Visibility = SesionUsuario.Usuario.Configuracion||SesionUsuario.Usuario.Administrador ? Visibility.Visible : Visibility.Collapsed;
             GrupPuntoVenta.Visibility = SesionUsuario.Usuario.PuntoVentas ? Visibility.Visible : Visibility.Collapsed;
             GrupTractor.Visibility = SesionUsuario.Usuario.Tractor ? Visibility.Visible : Visibility.Collapsed;
             GrupInventario.Visibility = SesionUsuario.Usuario.Inventario ? Visibility.Visible : Visibility.Collapsed;
@@ -57,6 +59,8 @@ namespace SFCH
             btnmovinventario.Visibility = SesionUsuario.Usuario.Administrador ? Visibility.Visible : Visibility.Collapsed;
             btnCerrTurnoActual.Visibility = SesionUsuario.Usuario.CerrarTurno ? Visibility.Visible : Visibility.Collapsed;
             btnturnos.Visibility = SesionUsuario.Usuario.CerrarTurno ? Visibility.Visible : Visibility.Collapsed;
+            btnConfiguracion.Visibility = SesionUsuario.Usuario.Configuracion||SesionUsuario.Usuario.Administrador ? Visibility.Visible : Visibility.Collapsed;
+        
         }
 
         private async void InitializeAsync()

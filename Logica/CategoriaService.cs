@@ -72,7 +72,16 @@ namespace SFCH.Logica
 
             using (var db = new Conexion())
             {
+                if (!db.UnidadMedidas.Any())
+                {
+                    await db.UnidadMedidas.AddAsync(new UnidadMedida
+                    {
+                        Nombre= "Unidad",
+                        Codigo= "UN"
 
+                    });
+                    await db.SaveChangesAsync();
+                }
                 var categorias = await db.UnidadMedidas.AsNoTracking().ToListAsync();
                 //var categorias = db.Categorias.Where(c => c.Activo).Include(x=>x.Productos).ToList();
                 return new ObservableCollection<UnidadMedida>(categorias);

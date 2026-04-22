@@ -80,7 +80,7 @@ namespace SFCH.Logica
         {
            using (var db=new Conexion())
             {
-                var persona= await db.Personas.Include(x => x.CxCs).Include(x=>x.Cuentas).ThenInclude(x=>x.TipoCuenta).AsNoTracking().FirstOrDefaultAsync(p => p.Identificacion == t);
+                var persona= await db.Personas.Include(x => x.CxCs).Include(x=>x.TipoEntidad).Include(x=>x.Cuentas).ThenInclude(x=>x.TipoCuenta).AsNoTracking().FirstOrDefaultAsync(p => p.Identificacion == t);
                 return persona;
             }
         }

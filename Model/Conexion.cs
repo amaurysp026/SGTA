@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using SGTA.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,10 +33,8 @@ namespace SFCH.Model
         public virtual DbSet<Proveedor> Proveedores { get; set; }
         public virtual DbSet<Compra> Compras { get; set; }
         public virtual DbSet<DetalleCompra> DetalleCompras { get; set; }
-        public virtual DbSet<DetalleFrezzer> DetalleFrezzers { get; set; }
-        public virtual DbSet<Freezer> Frezzers { get; set; }    
-        public virtual DbSet<RecepcionLeche> RecepcionLeches { get; set; }
-        public virtual DbSet<DetalleRecepcionLeche> DetalleRecepcionLeches { get; set; }
+        public virtual DbSet<Vehiculo> Vehiculos { get; set; }
+        public virtual DbSet<MantVehiculo> MantVehiculos { get; set; }
         public virtual DbSet<TipoEntidadAso> EntidadesASOs { get; set; }
         public virtual DbSet<Entidad> Entidad { get; set; }
         public virtual DbSet<Existencia> Existencias { get; set; }
@@ -79,11 +78,15 @@ namespace SFCH.Model
             connectionString = configuration.GetConnectionString("DefaultConnection") ?? "";
             //  MessageBox.Show("Con Parametros"+connectionString);
         }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseNpgsql("Host=b7txvjlh8nxuhkrk73wf-postgresql.services.clever-cloud.com;Port=5432;Database=b7txvjlh8nxuhkrk73wf;Username=ucyk6gwfrhd47sy6rlsm;Password=LwSZhh8bWwWjebbFCkZO4PFMtMZKNA");
+        //}
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(connectionString)
+                         optionsBuilder.UseSqlServer(connectionString)
                 .EnableSensitiveDataLogging(false);
             }
         }

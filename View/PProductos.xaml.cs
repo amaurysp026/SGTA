@@ -1,6 +1,6 @@
 ﻿using SFCH.IService;
 using SFCH.Logica;
-using SFCH.Migrations;
+
 using SFCH.Model;
 using System;
 using System.Collections.Generic;

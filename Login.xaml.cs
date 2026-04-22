@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using SFCH.Controller;
 using SFCH.IService;
 using SFCH.Logica;
@@ -30,35 +31,52 @@ namespace SFCH
         private string Tiemp { get; set; }
         public Login()
         {
-            var sw = Stopwatch.StartNew(); // inicia el cronómetro
-            InitializeComponent();
-            _ = Cargar();
-            sw.Stop(); // detiene el cronómetro
-                       // MessageBox.Show($"La ventana tardó {sw.ElapsedMilliseconds} ms en iniciar");
-                       // txtfoot.Text = $"La ventana tardó {sw.ElapsedMilliseconds} ms en iniciar";
-            Tiemp = ((decimal)sw.ElapsedMilliseconds / 1000).ToString();
-            // InitializeComponent();
-            //  _= Cargar();
-            txtfoot.Text += " | "+ Tiemp;
+            try
+            {
+                var sw = Stopwatch.StartNew(); // inicia el cronómetro
+                InitializeComponent();
+                Cargar();
+                sw.Stop(); // detiene el cronómetro
+                           // MessageBox.Show($"La ventana tardó {sw.ElapsedMilliseconds} ms en iniciar");
+                           // txtfoot.Text = $"La ventana tardó {sw.ElapsedMilliseconds} ms en iniciar";
+                Tiemp = ((decimal)sw.ElapsedMilliseconds / 1000).ToString();
+                // InitializeComponent();
+                //  _= Cargar();
+                txtfoot.Text += " | " + Tiemp;
 
-            //  MessageBox.Show("Ya se inicio");
+                //  MessageBox.Show("Ya se inicio");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error :" + ex.Message, "Error no controlado", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw;
+            }
 
         }
 
-        private async Task Cargar()
+        private async void Cargar()
         {
+            try
+            {
 
+            
             Configuracion congen;
             ConfiguracionLocal con;
             using (var db = new Conexion())
             {
 
-                //  MessageBox.Show(Util.RutaEjecutable());
+                // MessageBox.Show(db.Usuarios.Count().ToString());
                 //  MessageBox.Show("Bienvenido a "+ db.Configuracions.FirstOrDefault()?.NombreComercial,"Bienvenido",MessageBoxButton.OK,MessageBoxImage.Information);
                 // txtfoot.Text=SesionUsuario.InfConexion;
-                congen = await db.Configuracions.AsNoTracking().FirstAsync();
-                con = await db.ConfiguracionLocals.AsNoTracking().FirstAsync(x => x.NombreEquipo == Environment.MachineName) ?? new ConfiguracionLocal();
-                if (con == null)
+                if (db.Usuarios.Count()==0)
+                {
+                  await  db.Usuarios.AddAsync(new Usuario { NombreUsuario = "admin", ContrasenaHash = Util.HashPassword("123"), Administrador = true });
+                    await db.SaveChangesAsync();
+                     MessageBox.Show("No se encontraron usuarios. Se ha creado un usuario administrador predeterminado con nombre de usuario 'admin' y contraseña '123'. Por favor, cambie esta contraseña después de iniciar sesión.", "Usuario Predeterminado Creado", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                
+                
+                if ( db.ConfiguracionLocals.Where(x=>x.NombreEquipo == Environment.MachineName).Count()==0)
                 {
                     MessageBox.Show("No se encontró configuración local para este equipo. Se creará una nueva configuración local con valores predeterminados.", "Configuración Local No Encontrada", MessageBoxButton.OK, MessageBoxImage.Warning);
                     await db.ConfiguracionLocals.AddAsync(new ConfiguracionLocal { NombreEquipo = Environment.MachineName, RecordarUsuario = false, UsuarioRec = "" });
@@ -66,13 +84,20 @@ namespace SFCH
                     con = await db.ConfiguracionLocals.FirstOrDefaultAsync(x => x.NombreEquipo == Environment.MachineName) ?? new ConfiguracionLocal();
 
                 }
-                if (congen == null)
+                if (db.Configuracions.Count() == 0)
                 {
-                        MessageBox.Show("No se encontró configuración general. Se creará una nueva configuración con valores predeterminados.", "Configuración No Encontrada", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    await db.Configuracions.AddAsync(new Configuracion { NombreComercial = Environment.MachineName, NombreEmpresa = "", Telefono = "" });
-                    await db.SaveChangesAsync();
-                    this.Close();
+                     MessageBox.Show("No se encontró configuración general. Se creará una nueva configuración con valores predeterminados.", "Configuración No Encontrada", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    var v = new Configuracion { NombreComercial = "Empresa SA", NombreEmpresa = "", Telefono = "",MesnajeBienvenida="" ,MesnajeFinal1="",MesnajeFinal2=""};
+                    db.Configuracions.Add(v);
+                    if (db.SaveChanges()>0)
+                    {
+                        MessageBox.Show("Guardado Correctamente");
+                    }
+                  
                 }
+      
+                congen = await db.Configuracions.AsNoTracking().FirstAsync();
+                con = await db.ConfiguracionLocals.AsNoTracking().FirstAsync(x => x.NombreEquipo == Environment.MachineName) ?? new ConfiguracionLocal();
                 if (con.RecordarUsuario)
                 {
                     txtnombre.Text = con.UsuarioRec;
@@ -90,10 +115,15 @@ namespace SFCH
             carlogo.Visibility = Visibility.Visible;
             progreso.Visibility = Visibility.Collapsed;
 
-            // Util.GuardarImagenEnCarpetaSeleccionada(imagen,out string ruta);
-            // Util.GuardarImagenEnCarpetaSeleccionada(out string ruta);
+                // Util.GuardarImagenEnCarpetaSeleccionada(imagen,out string ruta);
+                // Util.GuardarImagenEnCarpetaSeleccionada(out string ruta);
 
-
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error :" + ex.Message, "Error no controlado", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+            }
 
 
 
