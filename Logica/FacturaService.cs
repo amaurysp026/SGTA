@@ -56,7 +56,7 @@ namespace SFCH.Logica
                 {
                    
                     factura.Turno = await db.Turnos.FindAsync(SesionUsuario.TurnoActual.Id);
-                    factura.ClienteP = await db.Personas.Include(x => x.TipoEntidad).FirstOrDefaultAsync(x => x.Id == factura.ClienteP.Id);
+                 //   factura.ClienteP = await db.Personas.Include(x => x.TipoEntidad).FirstOrDefaultAsync(x => x.Id == factura.ClienteP.Id);
                    
                     
                     if (!factura.Abierta)

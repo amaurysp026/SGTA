@@ -46,9 +46,10 @@ namespace SFCH
 
                 //  MessageBox.Show("Ya se inicio");
             }
-            catch (Exception ex)
+           // catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Error :" + ex.Message, "Error no controlado", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show("Error :" + ex.Message, "Error no controlado", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
             }
 
@@ -119,10 +120,12 @@ namespace SFCH
                 // Util.GuardarImagenEnCarpetaSeleccionada(out string ruta);
 
             }
-            catch (Exception ex)
+            //catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Error :" + ex.Message, "Error no controlado", MessageBoxButton.OK, MessageBoxImage.Error);
-                this.Close();
+                //MessageBox.Show("Error :" + ex.Message, "Error no controlado", MessageBoxButton.OK, MessageBoxImage.Error);
+                //this.Close();
+                throw;
             }
 
 
