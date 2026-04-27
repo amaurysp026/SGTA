@@ -57,9 +57,9 @@
 
                 <!-- Fila 1 -->
 
-                <TextBox Grid.Column="0" Grid.Row="0" Text="{Binding vh.Marca}"  Margin="5" materialDesign:HintAssist.Hint="Marca" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtModelo"/>
-                <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding vh.Modelo}"  Margin="5" materialDesign:HintAssist.Hint="Modelo"  Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtMarca"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding vh.Placa}" Margin="5" materialDesign:HintAssist.Hint="Placa Vehículo" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtPlacaVehiculo"  />
+                <TextBox Grid.Column="0" Grid.Row="0" Text="{Binding vh.Marca}" CharacterCasing="Upper" Margin="5" materialDesign:HintAssist.Hint="Marca" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtModelo"/>
+                <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding vh.Modelo}" CharacterCasing="Upper" Margin="5" materialDesign:HintAssist.Hint="Modelo"  Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtMarca"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding vh.Placa}" CharacterCasing="Upper" Margin="5" materialDesign:HintAssist.Hint="Placa Vehículo" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtPlacaVehiculo"  />
 
                 <TextBox Grid.Column="0" Margin="5" Grid.Row="1" Text="{Binding vh.Año}"  materialDesign:HintAssist.Hint="Año" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="TxtAño"/>
                 <TextBox Grid.Column="0" Name="txtprop" Grid.Row="2" Margin="5" materialDesign:HintAssist.Hint="Propietario" Style="{StaticResource MaterialDesignOutlinedTextBox}" >
