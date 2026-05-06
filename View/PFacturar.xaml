@@ -71,7 +71,7 @@
                 </MenuItem>
             </Menu>
             <TextBox Text="{Binding NombreCliente}" Name="txtcliente" GotFocus="TextBox_GotFocus_1" Grid.Column="2" HorizontalContentAlignment="Center" Margin="5" materialDesign:HintAssist.Hint="Cliente a Facturar" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
-            <TextBox Text="{Binding CodigoSocio}" Grid.Column="1" HorizontalContentAlignment="Center" Margin="5" materialDesign:HintAssist.Hint="Codigo " Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+            <TextBox Text="{Binding Placa}" Grid.Column="1" HorizontalContentAlignment="Center" Margin="5" materialDesign:HintAssist.Hint="Placa " Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
         </Grid>
         <Grid Grid.Column="1" HorizontalAlignment="Center" Grid.Row="0" Grid.RowSpan="10">
             <Grid.ColumnDefinitions>

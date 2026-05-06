@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using SFCH.Model;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,14 @@ namespace SGTA.View
             {
                 var configlocal = await db.ConfiguracionLocals.ToListAsync();
                 data.ItemsSource = configlocal;
+                foreach (var item in await db.Personas.ToListAsync())
+                {   
+                    if (item.TipoEntidad==null)
+                    {
+                       MessageBox.Show(  item.Nombre);
+                        
+                    }
+                }
             }
         }
     }

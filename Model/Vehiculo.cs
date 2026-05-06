@@ -16,9 +16,11 @@ namespace SGTA.Model
         public string FiltroAire { get; set; } = "";
         public string FiltroCombustible { get; set; } = "";
         public string FiltroCabina { get; set; } = "";
+        public string Estado { get; set; } = "En Proceso";
         public string Color { get; set; }   = string.Empty;
         public bool EnTaller { get; set; }=true;
         public virtual Persona? Persona { get; set; }
         public virtual List<MantVehiculo> MantVehiculos { get; set; } = new List<MantVehiculo>();
+        public string? Observacion { get; set; }
     }
 }

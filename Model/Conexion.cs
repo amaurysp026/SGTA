@@ -22,6 +22,7 @@ namespace SFCH.Model
         public virtual DbSet<TipoEntidad> TipoEntidades { get; set; }
         public virtual DbSet<Configuracion> Configuracions { get; set; }
         public virtual DbSet<Categoria> Categorias { get; set; }
+        public virtual DbSet<Citas> Citas { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
         public virtual DbSet<UnidadMedida> UnidadMedidas { get; set; }
         public virtual DbSet<Factura> Facturas { get; set; }
@@ -41,7 +42,7 @@ namespace SFCH.Model
         public virtual DbSet<Lote> Lotes { get; set; }
         public virtual DbSet<Empleado> Empleados { get; set; }
         public virtual DbSet<TipoServicioTractor> TipoServicioTractores { get; set; }
-   
+        public virtual DbSet<Mecanico> Mecanico { get; set; }
         public virtual DbSet<LiquidacionLeche> LiquidacionesLeche { get; set; }
         public virtual DbSet<DetalleLiquidacionLeche> DetallesLiquidacionLeche { get; set; }
         public virtual DbSet<PagoCxC> PagosCxC { get; set; }
@@ -86,8 +87,8 @@ namespace SFCH.Model
         {
             if (!optionsBuilder.IsConfigured)
             {
-                         optionsBuilder.UseSqlServer(connectionString)
-                .EnableSensitiveDataLogging(false);
+                optionsBuilder.UseSqlServer(connectionString)
+       .EnableSensitiveDataLogging(false);
             }
         }
     }

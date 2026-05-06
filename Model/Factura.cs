@@ -17,6 +17,7 @@ namespace SFCH.Model
         public string Numero { get; set; } =string.Empty;
         public bool Abierta { get; set; } = true;
         public bool Anulada { get; set; } = false;
+        public string Placa { get; set; } = string.Empty;
         public Entidad? Cliente { get;set; } 
         public Persona? ClienteP { get; set; }
         public string Tipo { get; set; } = "FAC";

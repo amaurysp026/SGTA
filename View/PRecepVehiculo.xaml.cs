@@ -41,7 +41,7 @@ namespace SGTA.View
         public async void cargar()
         {
 
-            vehiculos = await db.Vehiculos.Where(x=>x.EnTaller==true).ToListAsync();
+            vehiculos = await db.Vehiculos.Include(x=>x.Persona).Where(x=>x.EnTaller==true).ToListAsync();
             //var mat=await db.MantVehiculos.ToListAsync();
 
 
@@ -92,7 +92,7 @@ namespace SGTA.View
                     MessageBox.Show("Es Necesario un turno abierto");
                         return;
                       }
-
+                    fa.Placa = vh.Placa;
                     await factura.GuardarFactura(fa,true);
                     MessageBox.Show("Guardado Correctamente");
 
@@ -129,8 +129,15 @@ namespace SGTA.View
             {
                 VBuscarPersona vBuscarPersona = new VBuscarPersona();
                 vBuscarPersona.ShowDialog();
-                txtprop.Text = vBuscarPersona.PersonaSelecionada.Nombre + " " + vBuscarPersona.PersonaSelecionada.Apellido;
-                vh.Persona = vBuscarPersona.PersonaSelecionada;
+                if (vBuscarPersona.PersonaSelecionada != null)
+                {
+                    txtprop.Text = vBuscarPersona.PersonaSelecionada.Nombre + " " + vBuscarPersona.PersonaSelecionada.Apellido;
+                    vh.Persona = vBuscarPersona.PersonaSelecionada;
+                }
+                else
+                {
+                    MessageBox.Show("No se seleccionó ningún propietario", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
             catch (Exception ex)
             {
@@ -148,6 +155,25 @@ namespace SGTA.View
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
             btnlimpiar_Click(null, null);
+        }
+
+       
+        private async void TxtPlacaVehiculo_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(TxtPlaca.Text))
+            {
+                using (var db = new Conexion())
+                {
+                    var v = db.Vehiculos.FirstOrDefault(x => x.Placa == TxtPlaca.Text);
+                    if (v != null)
+                    {
+                        TxtMarca.Text = v.Marca;
+                        TxtModelo.Text = v.Modelo;
+                        TxtAño.Text = v.anno.ToString();
+                        MessageBox.Show("Vehículo encontrado, se han completado los campos de marca, modelo y año. Si desea modificar la información, por favor edítela manualmente.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+            }
         }
     }
 }

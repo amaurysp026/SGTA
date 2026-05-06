@@ -427,7 +427,7 @@
                                                FontSize="12.5" VerticalAlignment="Center"
                                                Margin="10,0,0,0"/>
                                 </StackPanel>
-                                <TextBlock Grid.Row="2" Text="$284,750"
+                                <TextBlock Grid.Row="2" Text="{Binding TotalIngresosMes, StringFormat=C}"
                                            Foreground="{StaticResource TextPrimary}"
                                            FontSize="26" FontWeight="Bold"/>
                                 <StackPanel Grid.Row="4" Orientation="Horizontal">
@@ -476,7 +476,7 @@
                                                FontSize="12.5" VerticalAlignment="Center"
                                                Margin="10,0,0,0"/>
                                 </StackPanel>
-                                <TextBlock Grid.Row="2" Text="148"
+                                <TextBlock Grid.Row="2" Text="{Binding Totalfaturasestemes}"
                                            Foreground="{StaticResource TextPrimary}"
                                            FontSize="26" FontWeight="Bold"/>
                                 <StackPanel Grid.Row="4" Orientation="Horizontal">
@@ -525,13 +525,13 @@ ShadowDepth="2" Direction="270"/>
                                                FontSize="12.5" VerticalAlignment="Center"
                                                Margin="10,0,0,0"/>
                                 </StackPanel>
-                                <TextBlock Grid.Row="2" Text="$38,200"
+                                <TextBlock Grid.Row="2" Text="{Binding TotaldeCobro,StringFormat=C}"
                                            Foreground="{StaticResource AccentText}"
                                            FontSize="26" FontWeight="Bold"/>
                                 <StackPanel Grid.Row="4" Orientation="Horizontal">
                                     <Border Background="{StaticResource AccentLight}"
                                             CornerRadius="4" Padding="6,2">
-                                        <TextBlock Text="23 facturas"
+                                        <TextBlock Text="{Binding Totalfacturasincobrar,StringFormat={}{0} facturas}"
                                                    Foreground="{StaticResource Accent}"
                                                    FontSize="11" FontWeight="SemiBold"/>
                                     </Border>
@@ -574,13 +574,13 @@ ShadowDepth="2" Direction="270"/>
                                                FontSize="12.5" VerticalAlignment="Center"
                                                Margin="10,0,0,0"/>
                                 </StackPanel>
-                                <TextBlock Grid.Row="2" Text="12"
+                                <TextBlock Grid.Row="2" Text="{Binding Totalvehiculostaller}"
                                            Foreground="{StaticResource TextPrimary}"
                                            FontSize="26" FontWeight="Bold"/>
                                 <StackPanel Grid.Row="4" Orientation="Horizontal">
                                     <Border Background="{StaticResource PurpleLight}"
                                             CornerRadius="4" Padding="6,2">
-                                        <TextBlock Text="4 urgentes"
+                                        <TextBlock Text="{Binding Totalvehiculosurgentes,StringFormat={}{0} urgentes}"
                                                    Foreground="{StaticResource Purple}"
                                                    FontSize="11" FontWeight="SemiBold"/>
                                     </Border>
@@ -620,7 +620,7 @@ ShadowDepth="2" Direction="270"/>
                                                Margin="0,0,0,14"/>
                                     <Button Style="{StaticResource BtnPrimary}"
                                             HorizontalAlignment="Stretch"
-                                            Margin="0,0,0,8">
+                                            Margin="0,0,0,8" Click="Button_Click">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="+ " FontWeight="Bold"/>
                                             <TextBlock Text="Nueva Factura"/>

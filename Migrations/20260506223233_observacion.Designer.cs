@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SFCH.Model;
 
@@ -11,9 +12,11 @@ using SFCH.Model;
 namespace SGTA.Migrations
 {
     [DbContext(typeof(Conexion))]
-    partial class ConexionModelSnapshot : ModelSnapshot
+    [Migration("20260506223233_observacion")]
+    partial class observacion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

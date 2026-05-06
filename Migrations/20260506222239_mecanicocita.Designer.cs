@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SFCH.Model;
 
@@ -11,9 +12,11 @@ using SFCH.Model;
 namespace SGTA.Migrations
 {
     [DbContext(typeof(Conexion))]
-    partial class ConexionModelSnapshot : ModelSnapshot
+    [Migration("20260506222239_mecanicocita")]
+    partial class mecanicocita
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2106,9 +2109,6 @@ namespace SGTA.Migrations
 
                     b.Property<string>("Modelo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Observacion")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("PersonaId")

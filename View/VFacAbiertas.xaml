@@ -19,7 +19,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Fecha" Binding="{Binding FechaEmision, StringFormat='{}{0:dd/MM/yyyy}'}" Width="auto"/>
                 <DataGridTextColumn Header="Numero" Binding="{Binding Id}" Width="auto"/>
-                <DataGridTextColumn Header="Codigo" Binding="{Binding CodigoSocio}" Width="auto"/>
+                <DataGridTextColumn Header="Placa" Binding="{Binding Placa}" Width="auto"/>
                 <DataGridTextColumn Header="Cliente" Binding="{Binding NombreCliente}" Width="auto"/>
                 <DataGridTextColumn Header="Impuesto" Binding="{Binding ITBIS, StringFormat='{}{0:N2}'}" Width="auto"/>
                 <DataGridTextColumn Header="Total" Binding="{Binding Total, StringFormat='{}{0:N2}'}" Width="*">

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SFCH.Controller;
 using SFCH.Model;
+using SGTA.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,11 +27,23 @@ namespace SFCH.View
     /// </summary>
     public partial class PInicio : Page
     {
+        public class Dashboard
+        {
+            public int Totalvehiculostaller { get; set; }
+            public int Totalfaturasestemes { get;   set; }
+            public decimal TotaldeCobro { get; set; }
+            public decimal TotalIngresosMes { get; set; } = 0;
+            public int Totalfacturasincobrar { get; set; }
+            public int Totalvehiculosurgentes { get; set; }
+            public List<Vehiculo> VehiculosTaller { get; set; } = new List<Vehiculo>();
+        }
+        public Dashboard dashboard { get; set; }=new Dashboard();
         public PInicio()
         {
             InitializeComponent();
 
-            _= Cargar();
+             Cargar();
+            
         }
         public async Task<string> ConsultarApiAsync(string url)
         {
@@ -66,8 +79,34 @@ namespace SFCH.View
             var principal = new System.Security.Principal.WindowsPrincipal(identity);
             return principal.IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator);
         }
-        private async Task Cargar()
+        private async void Cargar()
         {
+
+            try
+            {
+                using (var db=new Conexion())
+                {
+                    dashboard = new Dashboard
+                    {
+                        Totalvehiculostaller = await db.Vehiculos.Where(x => x.EnTaller == true).CountAsync(),
+                        Totalfaturasestemes = await db.Facturas.Where(x=>x.Abierta==false).CountAsync(),
+                        TotaldeCobro = await db.Facturas.Where(x => x.TotalPendiente > 0).SumAsync(x => x.TotalPendiente)
+                        ,
+                        Totalfacturasincobrar = await db.Facturas.Where(x => x.TotalPendiente > 0).CountAsync(),
+                        Totalvehiculosurgentes = await db.Vehiculos.Where(x => x.EnTaller == true && x.Estado == "Urgente").CountAsync(),
+                        TotalIngresosMes= await db.Facturas.Where(x =>x.Abierta==false&& x.FechaEmision.Month == DateTime.Now.Month && x.FechaEmision.Year == DateTime.Now.Year).SumAsync(x => x.Total)
+                    };
+                    this.DataContext = dashboard;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+
        //  MessageBox.Show(  await ConsultarApiAsync("https://api.exchangerate-api.com/v4/latest/USD"));
             //if (!IsAdministrator())
             //{
@@ -119,6 +158,11 @@ namespace SFCH.View
                 //  MessageBox.Show(Session.Configuracion.MensajeError + " :" + ex.Message, "Error");
                
             
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new PFacturar());
         }
     }
 }

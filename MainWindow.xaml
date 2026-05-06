@@ -276,7 +276,7 @@
                     </Fluent:Button>
                 </Fluent:RibbonGroupBox>
                 <Fluent:RibbonGroupBox Header="Citas y Reservaciones">
-                    <Fluent:Button  Padding="5,0" Header="Calendario de citas">
+                    <Fluent:Button  Padding="5,0" Click="Button_Click" Header="Calendario de citas">
                         <Fluent:Button.LargeIcon>
                             <materialDesign:PackIcon Kind="ClipboardListOutline" Width="30" Height="30"></materialDesign:PackIcon>
                         </Fluent:Button.LargeIcon>

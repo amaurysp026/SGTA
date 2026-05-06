@@ -265,7 +265,7 @@ namespace SFCH
 
         private void btninicio_Click(object sender, RoutedEventArgs e)
         {
-            FrameInicio.Content = new PInicio();
+            FrameInicio.Navigate(new PInicio());
         }
 
         private void btnReportTransacciones_Click(object sender, RoutedEventArgs e)
@@ -440,6 +440,11 @@ namespace SFCH
         private void btnne_Click(object sender, RoutedEventArgs e)
         {
             FrameInicio.Navigate(new PAjustesLocal());
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            FrameInicio.Navigate(new PCitas());
         }
     }
 }

@@ -1,0 +1,32 @@
+﻿<Page x:Class="SGTA.View.PCitas"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SGTA.View"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PCitas">
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="0">
+            <DatePicker Name="fecha" Width="200" Margin="10" SelectedDateChanged="fecha_SelectedDateChanged" materialDesign:HintAssist.Hint="Fecha" Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+            <TextBox x:Name="Hora" Width="100" materialDesign:HintAssist.Hint="Hora" Margin="10" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            <TextBox Name="txtDescripcion" materialDesign:HintAssist.Hint="Descripcion" Margin="10" Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+            <TextBox x:Name="txtPlaca" materialDesign:HintAssist.Hint="Placa" Width="100" Margin="10" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            <Button Content="Guardar Cita" Margin="10" Height="50" Name="btnguardar" Click="btnguardar_Click"/>
+        </StackPanel>
+        <DataGrid x:Name="data" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="1">
+
+        </DataGrid>
+    </Grid>
+    
+</Page>

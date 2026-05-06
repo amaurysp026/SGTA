@@ -405,31 +405,26 @@ namespace SFCH.View
 
         private async void btnFacturar_Click(object sender, RoutedEventArgs e)
         {
-            //if (facturat.Efectivo < facturat.Total)
-            //{
-            //    MessageBox.Show("No es posible la facturación a crédito. El efectivo no puede ser menor que el total de la factura.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //    return;
-            //}
             if (facturat.Detalles.Count() == 0)
             {
                 MessageBox.Show("No es posible la facturación sin productos ", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+            
             if (!editando)
             {
                 facturat.Condicion = "Contado";
                 facturat.Abierta = false;
                 if (facturat.Efectivo < facturat.Total)
                 {
-                    if (MessageBox.Show("Desea Facturar a credito","Aviso!",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
+                    if (MessageBox.Show("Desea Facturar a credito", "Aviso!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         foreach (var item in facturat.Detalles)
                         {
-                            if (!item.Producto?.AplicaCredito??true)
+                            if (!item.Producto?.AplicaCredito ?? true)
                             {
                                 MessageBox.Show($"El producto {item.NombreProducto} no se puede facturar a crédito. Por favor, ajuste la cantidad o elimine el producto para continuar.", "Producto no apto para crédito", MessageBoxButton.OK, MessageBoxImage.Warning);
                                 return;
-
                             }
                            
                         }
@@ -448,6 +443,23 @@ namespace SFCH.View
 
                 if (await facturas.GuardarFactura(facturat))
                 {
+                    if (!string.IsNullOrEmpty(facturat.Placa))
+                    {
+                        if (MessageBox.Show("¿Desea dar salida al vehículo del taller?", "Salida de Vehículo", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                           using (var db=new Conexion())
+                            {
+                                var vehiculo=db.Vehiculos.FirstOrDefault(x=>x.Placa==facturat.Placa);
+                                if (vehiculo != null)
+                                {
+                                    vehiculo.EnTaller=false;
+                                    db.Update(vehiculo);
+                                    db.SaveChanges();
+                                }
+                            }
+                        }
+                    }
+
                     if (SesionUsuario.Configuracion.FacGrade)
                     {
                         await facturas.ImprimirFacturaGrande(await facturas.ObtenerFacturaPorId(facturat));
@@ -473,6 +485,23 @@ namespace SFCH.View
                 facturat.Abierta = false;
                 if (await facturas.ActualizarFactura(facturat))
                 {
+                    if (!string.IsNullOrEmpty(facturat.Placa))
+                    {
+                        if (MessageBox.Show("¿Desea dar salida al vehículo del taller?", "Salida de Vehículo", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                           using (var db=new Conexion())
+                            {
+                                var vehiculo=db.Vehiculos.FirstOrDefault(x=>x.Placa==facturat.Placa);
+                                if (vehiculo != null)
+                                {
+                                    vehiculo.EnTaller=false;
+                                    db.Update(vehiculo);
+                                    db.SaveChanges();
+                                }
+                            }
+                        }
+                    }
+
                     if (SesionUsuario.Configuracion.FacGrade)
                     {
                         await facturas.ImprimirFacturaGrande(await facturas.ObtenerFacturaPorId(facturat));
@@ -483,12 +512,11 @@ namespace SFCH.View
                         await facturas.ImprimirFactura(await facturas.ObtenerFacturaPorId(facturat));
                     }
                     editando = false;
-
                     await recargar();
-
-
                 }
                 ;
+
+
                 //   MessageBox.Show("Factura actualizada correctamente.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
 
             }

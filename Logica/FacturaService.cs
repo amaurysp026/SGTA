@@ -84,8 +84,7 @@ namespace SFCH.Logica
                                 DiasCredito = factura.DiasCredito == 0 ? factura.DiasCredito : 30
 
                             };
-                            db.CxCs.Add(cxc);
-                        }
+                         }
                         foreach (var item in factura.Detalles)
                         {
                             if (item.Producto == null)
@@ -204,7 +203,23 @@ namespace SFCH.Logica
                             item.Producto = await db.Productos.FindAsync(item.Producto?.Id);
                         }
                     }
-                    await db.CxCs.AddAsync(cxc);
+
+                    // Recargar entidades relacionadas para evitar problemas de IDENTITY_INSERT
+                    if (factura.ClienteP != null)
+                    {
+                        var clienteReloaded = await db.Personas.Include(x => x.TipoEntidad).FirstOrDefaultAsync(x => x.Id == factura.ClienteP.Id);
+                        if (clienteReloaded != null)
+                        {
+                            factura.ClienteP = clienteReloaded;
+                            cxc.Cliente = clienteReloaded; // Ensure CxC uses the tracked instance
+                        }
+                    }
+
+                    // Solo agregar cxc si tiene valores (cuando hay monto pendiente)
+                    if (cxc.MontoFactura > 0)
+                    {
+                        await db.CxCs.AddAsync(cxc);
+                    }
 
                     await db.Facturas.AddAsync(factura);
                     await db.SaveChangesAsync();
@@ -682,11 +697,9 @@ namespace SFCH.Logica
 
                         item.Producto = p;
                     }
-                    await db.Existencias.AddRangeAsync(factura.Detalles.Select(d => d.Producto.Existencias.Last()));
-
                 }
 
-                // Obtener la factura existente con detalles
+                // Obtener la factura existente with detalles
                 var existingFactura = await db.Facturas
                     .Include(f => f.Detalles)
                     .FirstOrDefaultAsync(f => f.Id == factura.Id);
@@ -859,10 +872,8 @@ namespace SFCH.Logica
         }
         private void AddCellEnca(TableRow row, string text, TextAlignment alignment)
         {
-            var paragraph = new Paragraph(new Run(text));
-            paragraph.TextAlignment = alignment;
-            paragraph.Margin = new Thickness(3);
-            var cell = new TableCell(paragraph);
+            var paragraph = new Paragraph(new Run(text)) { TextAlignment = alignment };
+            TableCell cell = new TableCell(paragraph);
             cell.BorderBrush = Brushes.Black;
             cell.Padding = new Thickness(0.10);
             cell.FontFamily = new FontFamily("Helvetica");
