@@ -14,13 +14,26 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ComboBox x:Name="cbUsuarios" ItemsSource="{Binding usuarios}" Width="200" Height="30" Margin="10"/>
-        <DataGrid CanUserAddRows="False" x:Name="data"  RowEditEnding="Data_RowEditEnding" ItemsSource="{Binding usuarios}" Grid.Row="1" Margin="10">
+        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" x:Name="data"  RowEditEnding="Data_RowEditEnding" ItemsSource="{Binding usuarios}" Grid.Row="1" Margin="10">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Guardar Cambios" Click="MenuItem_Click"/>
                     <MenuItem Header="Desactivar Usuario" Click="MenuItem_Click_1" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" />
+                <DataGridTextColumn Header="Apellido" Binding="{Binding Apellido}" />
+                <DataGridTextColumn Header="Usuario" Binding="{Binding NombreUsuario}" />
+                <DataGridTextColumn Header="Rol" Binding="{Binding Rol}" />
+                <DataGridCheckBoxColumn Header="Activo" Binding="{Binding Activo}" />
+                <DataGridCheckBoxColumn Header="Administrador" Binding="{Binding Administrador}" />
+                <DataGridCheckBoxColumn Header="Permitir Edición" Binding="{Binding PermitirEdicion}" />
+                <DataGridCheckBoxColumn Header="Permitir Eliminación" Binding="{Binding PermitirEliminacion}" />
+                <DataGridCheckBoxColumn Header="Permitir Creación" Binding="{Binding PermitirCreacion}" />
+
+
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </Page>

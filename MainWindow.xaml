@@ -437,7 +437,7 @@
                             <materialDesign:PackIcon Kind="Settings" Width="30" Height="30"></materialDesign:PackIcon>
                         </Fluent:Button.LargeIcon>
                     </Fluent:Button>
-                    <Fluent:Button x:Name="btnne"  Padding="5,0" Header="Ajuste Local">
+                    <Fluent:Button x:Name="btnne" Click="btnne_Click"  Padding="5,0" Header="Ajuste Local">
                         <Fluent:Button.LargeIcon>
                             <materialDesign:PackIcon Kind="SettingsVertical" Width="30" Height="30"></materialDesign:PackIcon>
                         </Fluent:Button.LargeIcon>

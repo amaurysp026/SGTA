@@ -436,5 +436,10 @@ namespace SFCH
         {
             FrameInicio.Navigate(new PRecepVehiculo());
         }
+
+        private void btnne_Click(object sender, RoutedEventArgs e)
+        {
+            FrameInicio.Navigate(new PAjustesLocal());
+        }
     }
 }
