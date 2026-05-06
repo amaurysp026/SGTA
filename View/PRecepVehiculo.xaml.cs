@@ -78,7 +78,7 @@ namespace SGTA.View
                 }
                    
 
-                vh.Persona= await db.Personas.FirstOrDefaultAsync(x=>x.Id==vh.Persona.Id);
+                vh.Persona= await db.Personas.Include(x => x.TipoEntidad).FirstOrDefaultAsync(x=>x.Id==vh.Persona.Id);
                 await db.Vehiculos.AddAsync(vh);
                 if (await db.SaveChangesAsync() > 0)
                 {
@@ -125,10 +125,29 @@ namespace SGTA.View
 
         private void btnbuscarpro_Click(object sender, RoutedEventArgs e)
         {
-            VBuscarPersona vBuscarPersona = new VBuscarPersona();
-            vBuscarPersona.ShowDialog();    
-            txtprop.Text = vBuscarPersona.PersonaSelecionada.Nombre + " " + vBuscarPersona.PersonaSelecionada.Apellido;
-            vh.Persona= vBuscarPersona.PersonaSelecionada;
+           try
+            {
+                VBuscarPersona vBuscarPersona = new VBuscarPersona();
+                vBuscarPersona.ShowDialog();
+                txtprop.Text = vBuscarPersona.PersonaSelecionada.Nombre + " " + vBuscarPersona.PersonaSelecionada.Apellido;
+                vh.Persona = vBuscarPersona.PersonaSelecionada;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error :" + ex.Message);
+            }
+        }
+
+        private void btnlimpiar_Click(object sender, RoutedEventArgs e)
+        {
+            txtprop.Text = string.Empty;
+            vh = new Vehiculo();
+            DataContext = this;
+        }
+
+        private void btnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            btnlimpiar_Click(null, null);
         }
     }
 }

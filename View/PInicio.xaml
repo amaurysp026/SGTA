@@ -3,24 +3,852 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:SFCH.View"
+      xmlns:local="clr-namespace:SFCH.View" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="PInicio">
+    
+      Title="AutoTaller Pro — Sistema de Facturación"
+        Height="820" Width="1300"
+       
+      
+        Background="White"
+        FontFamily="Segoe UI">
 
-    <Grid Margin="0,33,0,-33">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Image Name="img" Stretch="Uniform"></Image>
+    <!-- ═══════════════════════════════════════════════
+         RECURSOS GLOBALES: Colores, Estilos, Templates
+         ═══════════════════════════════════════════════ -->
+    <Page.Resources>
 
-        <StackPanel Grid.Row="1" VerticalAlignment="Center" >
-            <TextBlock TextWrapping="Wrap" TextAlignment="Center" x:Name="txtNombreEmpresa" FontSize="45" Foreground="Gray" VerticalAlignment="Center"  HorizontalAlignment="Center">Bienvenidos a SFCH System</TextBlock>
-            <Separator Width="400" />
-            <TextBlock FontWeight="Bold" FontSize="25" Name="txtSaludoUsuario" Foreground="Gray" VerticalAlignment="Top"  HorizontalAlignment="Center" >Hola!, Usuario</TextBlock>
-            <TextBlock FontSize="15" Name="FechaInicio" Foreground="Red" VerticalAlignment="Top"  HorizontalAlignment="Center" >20/05/2025</TextBlock>
-        </StackPanel>
+        <!-- ── Paleta de color CLARA ── -->
+        <SolidColorBrush x:Key="BgBase"        Color="#F4F6FA"/>
+        <SolidColorBrush x:Key="BgSidebar"     Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="BgCard"        Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="BgCardHover"   Color="#F0F4FF"/>
+        <SolidColorBrush x:Key="BgRow"         Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="BgRowAlt"      Color="#F8F9FC"/>
+        <SolidColorBrush x:Key="Accent"        Color="#E67E00"/>
+        <SolidColorBrush x:Key="AccentLight"   Color="#FFF3E0"/>
+        <SolidColorBrush x:Key="AccentText"    Color="#C46200"/>
+        <SolidColorBrush x:Key="TextPrimary"   Color="#1A2033"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#4B5880"/>
+        <SolidColorBrush x:Key="TextMuted"     Color="#9AA5BE"/>
+        <SolidColorBrush x:Key="BorderColor"   Color="#E2E8F4"/>
+        <SolidColorBrush x:Key="BorderFocus"   Color="#E67E00"/>
+        <SolidColorBrush x:Key="Green"         Color="#059669"/>
+        <SolidColorBrush x:Key="GreenLight"    Color="#D1FAE5"/>
+        <SolidColorBrush x:Key="Red"           Color="#DC2626"/>
+        <SolidColorBrush x:Key="RedLight"      Color="#FEE2E2"/>
+        <SolidColorBrush x:Key="Blue"          Color="#2563EB"/>
+        <SolidColorBrush x:Key="BlueLight"     Color="#DBEAFE"/>
+        <SolidColorBrush x:Key="Purple"        Color="#7C3AED"/>
+        <SolidColorBrush x:Key="PurpleLight"   Color="#EDE9FE"/>
+        <SolidColorBrush x:Key="Shadow"        Color="#0000001A"/>
 
+        <!-- ══════════════════════════════════
+             ESTILO: Botón de navegación lateral
+             ══════════════════════════════════ -->
+        <Style x:Key="NavButton" TargetType="Button">
+            <Setter Property="Background"      Value="Transparent"/>
+            <Setter Property="Foreground"      Value="{StaticResource TextSecondary}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Height"          Value="44"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding"         Value="16,0"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="FontSize"        Value="13.5"/>
+            <Setter Property="FontWeight"      Value="Normal"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Margin="8,2">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#F0F4FF"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Botón de navegación ACTIVO -->
+        <Style x:Key="NavButtonActive" TargetType="Button" BasedOn="{StaticResource NavButton}">
+            <Setter Property="Background" Value="{StaticResource AccentLight}"/>
+            <Setter Property="Foreground" Value="{StaticResource AccentText}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <!-- ══════════════════════════════════
+             ESTILO: Botón acción principal
+             ══════════════════════════════════ -->
+        <Style x:Key="BtnPrimary" TargetType="Button">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#E67E00" Offset="0"/>
+                        <GradientStop Color="#F59E0B" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground"      Value="#FFFFFF"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight"      Value="Bold"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="Height"          Value="38"/>
+            <Setter Property="Padding"         Value="18,0"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Opacity" Value="0.88"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="Opacity" Value="0.72"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Botón secundario -->
+        <Style x:Key="BtnSecondary" TargetType="Button">
+            <Setter Property="Background"      Value="#FFFFFF"/>
+            <Setter Property="Foreground"      Value="{StaticResource TextSecondary}"/>
+            <Setter Property="BorderBrush"     Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="Height"          Value="38"/>
+            <Setter Property="Padding"         Value="16,0"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#F0F4FF"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ══════════════════════════════════
+             ESTILO: TextBox de búsqueda
+             ══════════════════════════════════ -->
+        <Style x:Key="SearchBox" TargetType="TextBox">
+            <Setter Property="Background"      Value="#FFFFFF"/>
+            <Setter Property="Foreground"      Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderBrush"     Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height"          Value="38"/>
+            <Setter Property="Padding"         Value="12,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="CaretBrush"      Value="{StaticResource Accent}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="{StaticResource Accent}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ══════════════════════════════════
+             ESTILO: ComboBox
+             ══════════════════════════════════ -->
+        <Style x:Key="StyledCombo" TargetType="ComboBox">
+            <Setter Property="Background"      Value="#FFFFFF"/>
+            <Setter Property="Foreground"      Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderBrush"     Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height"          Value="38"/>
+            <Setter Property="Padding"         Value="10,0"/>
+            <Setter Property="FontSize"        Value="13"/>
+        </Style>
+
+        <!-- ══════════════════════════════════
+             ESTILO: DataGrid
+             ══════════════════════════════════ -->
+        <Style x:Key="ModernGrid" TargetType="DataGrid">
+            <Setter Property="Background"               Value="Transparent"/>
+            <Setter Property="Foreground"               Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderThickness"          Value="0"/>
+            <Setter Property="RowBackground"            Value="{StaticResource BgRow}"/>
+            <Setter Property="AlternatingRowBackground" Value="{StaticResource BgRowAlt}"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource BorderColor}"/>
+            <Setter Property="VerticalGridLinesBrush"   Value="Transparent"/>
+            <Setter Property="RowHeight"                Value="48"/>
+            <Setter Property="FontSize"                 Value="13"/>
+            <Setter Property="SelectionMode"            Value="Single"/>
+            <Setter Property="SelectionUnit"            Value="FullRow"/>
+            <Setter Property="AutoGenerateColumns"      Value="False"/>
+            <Setter Property="CanUserAddRows"           Value="False"/>
+            <Setter Property="CanUserDeleteRows"        Value="False"/>
+            <Setter Property="CanUserResizeRows"        Value="False"/>
+            <Setter Property="IsReadOnly"               Value="True"/>
+            <Setter Property="HeadersVisibility"        Value="Column"/>
+            <Setter Property="ColumnHeaderHeight"       Value="42"/>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background"      Value="#F8F9FC"/>
+            <Setter Property="Foreground"      Value="{StaticResource TextMuted}"/>
+            <Setter Property="FontSize"        Value="11"/>
+            <Setter Property="FontWeight"      Value="Bold"/>
+            <Setter Property="Padding"         Value="14,0"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush"     Value="{StaticResource BorderColor}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridColumnHeader">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <TextBlock Text="{TemplateBinding Content}"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       FontSize="{TemplateBinding FontSize}"
+                                       FontWeight="{TemplateBinding FontWeight}"
+                                       VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="DataGridRow">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridRow">
+                        <Border x:Name="rowBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{StaticResource BorderColor}"
+                                BorderThickness="0,0,0,1">
+                            <SelectiveScrollingGrid>
+                                <DataGridCellsPresenter/>
+                            </SelectiveScrollingGrid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rowBorder" Property="Background" Value="#F0F4FF"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="rowBorder" Property="Background" Value="#E8EFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding"         Value="14,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridCell">
+                        <Border Background="Transparent"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ScrollBar">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Width"      Value="6"/>
+        </Style>
+
+
+    </Page.Resources>
+
+    <!-- ═══════════════════════════════════════════════
+         LAYOUT RAÍZ
+         ═══════════════════════════════════════════════ -->
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+   
+
+        <!-- ╔══════════════════════════════════════════╗
+             ║      C O N T E N I D O   P R I N C I P A L  ║
+             ╚══════════════════════════════════════════╝ -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- ── Top Bar ── -->
+            <Border Grid.Row="0"
+                    Background="{StaticResource BgSidebar}"
+                    BorderBrush="{StaticResource BorderColor}"
+                    BorderThickness="0,0,0,1"
+                    Padding="28,0">
+                <DockPanel Visibility="Collapsed">
+                    <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center">
+                        <TextBlock Text="Dashboard"
+                                   Foreground="{StaticResource TextPrimary}"
+                                   FontSize="18" FontWeight="Bold"/>
+                        <TextBlock Text="Resumen operativo del taller"
+                                   Foreground="{StaticResource TextMuted}"
+                                   FontSize="11.5"/>
+                    </StackPanel>
+
+                    <StackPanel DockPanel.Dock="Right"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <!-- Notificaciones -->
+                        <Border Width="38" Height="38" CornerRadius="8"
+                                Background="#FFFFFF"
+                                BorderBrush="{StaticResource BorderColor}"
+                                BorderThickness="1"
+                                Margin="0,0,10,0" Cursor="Hand">
+                            <Grid>
+                                <TextBlock Text="🔔" FontSize="16"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                                <Border Width="10" Height="10" CornerRadius="5"
+                                        Background="{StaticResource Red}"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Top"
+                                        Margin="0,4,4,0"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Fecha -->
+                        <Border Padding="12,0" Height="38" CornerRadius="8"
+                                Background="#FFFFFF"
+                                BorderBrush="{StaticResource BorderColor}"
+                                BorderThickness="1"
+                                Margin="0,0,10,0">
+                            <TextBlock x:Name="tbFecha"
+                                       Text="Martes, 28 de Abril · 2026"
+                                       Foreground="{StaticResource TextSecondary}"
+                                       FontSize="12.5" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <Button Style="{StaticResource BtnPrimary}"
+                                Content="+ Nueva Factura"/>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+
+            <!-- ── Contenido con scroll ── -->
+            <ScrollViewer Grid.Row="1"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Padding="28,24,28,24">
+                <StackPanel>
+
+                    <!-- ░░░ FILA 1: KPI Cards ░░░ -->
+                    <Grid Margin="0,0,0,24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Card 1: Ingresos -->
+                        <materialDesign:Card   Margin="5" Grid.Column="0" Padding="20,18"
+                                Background="{StaticResource BgCard}"
+                                BorderBrush="{StaticResource BorderColor}"
+                                BorderThickness="1"
+                                
+                                >
+                            <materialDesign:Card.Effect>
+                                <DropShadowEffect Color="#00000010" BlurRadius="12"
+                        ShadowDepth="2" Direction="270"/>
+                            </materialDesign:Card.Effect>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="12"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                    <Border Width="36" Height="36" CornerRadius="8"
+                                            Background="{StaticResource GreenLight}">
+                                        <TextBlock Text="💰" FontSize="16"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Border>
+                                    <TextBlock Text="Ingresos del Mes"
+                                               Foreground="{StaticResource TextSecondary}"
+                                               FontSize="12.5" VerticalAlignment="Center"
+                                               Margin="10,0,0,0"/>
+                                </StackPanel>
+                                <TextBlock Grid.Row="2" Text="$284,750"
+                                           Foreground="{StaticResource TextPrimary}"
+                                           FontSize="26" FontWeight="Bold"/>
+                                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                    <Border Background="{StaticResource GreenLight}"
+                                            CornerRadius="4" Padding="6,2">
+                                        <TextBlock Text="▲ 12.4%"
+                                                   Foreground="{StaticResource Green}"
+                                                   FontSize="11" FontWeight="SemiBold"/>
+                                    </Border>
+                                    <TextBlock Text="vs mes anterior"
+                                               Foreground="{StaticResource TextMuted}"
+                                               FontSize="11" Margin="6,0,0,0"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
+
+                        <!-- Card 2: Facturas -->
+                        <materialDesign:Card   Margin="5" Grid.Column="2" Padding="20,18"
+         Background="{StaticResource BgCard}"
+         BorderBrush="{StaticResource BorderColor}"
+         BorderThickness="1"
+         
+         >
+                            <materialDesign:Card.Effect>
+                                <DropShadowEffect Color="#00000010" BlurRadius="12"
+                                                  ShadowDepth="2" Direction="270"/>
+                            </materialDesign:Card.Effect>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="12"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                    <Border Width="36" Height="36" CornerRadius="8"
+                                            Background="{StaticResource BlueLight}">
+                                        <TextBlock Text="🧾" FontSize="16"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Border>
+                                    <TextBlock Text="Facturas Emitidas"
+                                               Foreground="{StaticResource TextSecondary}"
+                                               FontSize="12.5" VerticalAlignment="Center"
+                                               Margin="10,0,0,0"/>
+                                </StackPanel>
+                                <TextBlock Grid.Row="2" Text="148"
+                                           Foreground="{StaticResource TextPrimary}"
+                                           FontSize="26" FontWeight="Bold"/>
+                                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                    <Border Background="{StaticResource BlueLight}"
+                                            CornerRadius="4" Padding="6,2">
+                                        <TextBlock Text="▲ 8.1%"
+                                                   Foreground="{StaticResource Blue}"
+                                                   FontSize="11" FontWeight="SemiBold"/>
+                                    </Border>
+                                    <TextBlock Text="este mes"
+                                               Foreground="{StaticResource TextMuted}"
+                                               FontSize="11" Margin="6,0,0,0"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
+
+                        <!-- Card 3: Pendientes -->
+                        <materialDesign:Card   Margin="5" Grid.Column="4" Padding="20,18"
+        Background="{StaticResource BgCard}"
+        BorderBrush="{StaticResource BorderColor}"
+        BorderThickness="1"
+        
+        >
+                            <materialDesign:Card.Effect>
+                                <DropShadowEffect Color="#00000010" BlurRadius="12"
+ShadowDepth="2" Direction="270"/>
+                            </materialDesign:Card.Effect>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="12"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                    <Border Width="36" Height="36" CornerRadius="8"
+                                            Background="{StaticResource AccentLight}">
+                                        <TextBlock Text="⏳" FontSize="16"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Border>
+                                    <TextBlock Text="Pendientes de Cobro"
+                                               Foreground="{StaticResource TextSecondary}"
+                                               FontSize="12.5" VerticalAlignment="Center"
+                                               Margin="10,0,0,0"/>
+                                </StackPanel>
+                                <TextBlock Grid.Row="2" Text="$38,200"
+                                           Foreground="{StaticResource AccentText}"
+                                           FontSize="26" FontWeight="Bold"/>
+                                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                    <Border Background="{StaticResource AccentLight}"
+                                            CornerRadius="4" Padding="6,2">
+                                        <TextBlock Text="23 facturas"
+                                                   Foreground="{StaticResource Accent}"
+                                                   FontSize="11" FontWeight="SemiBold"/>
+                                    </Border>
+                                    <TextBlock Text="sin cobrar"
+                                               Foreground="{StaticResource TextMuted}"
+                                               FontSize="11" Margin="6,0,0,0"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
+
+                        <!-- Card 4: Vehículos -->
+                        <materialDesign:Card   Margin="5" Grid.Column="6" Padding="20,18"
+        Background="{StaticResource BgCard}"
+        BorderBrush="{StaticResource BorderColor}"
+        BorderThickness="1"
+        
+        >
+                            <materialDesign:Card.Effect>
+                                <DropShadowEffect Color="#00000010" BlurRadius="12"
+ShadowDepth="2" Direction="270"/>
+                            </materialDesign:Card.Effect>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="12"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                    <Border Width="36" Height="36" CornerRadius="8"
+                                            Background="{StaticResource PurpleLight}">
+                                        <TextBlock Text="🚗" FontSize="16"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Border>
+                                    <TextBlock Text="Vehículos en Taller"
+                                               Foreground="{StaticResource TextSecondary}"
+                                               FontSize="12.5" VerticalAlignment="Center"
+                                               Margin="10,0,0,0"/>
+                                </StackPanel>
+                                <TextBlock Grid.Row="2" Text="12"
+                                           Foreground="{StaticResource TextPrimary}"
+                                           FontSize="26" FontWeight="Bold"/>
+                                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                    <Border Background="{StaticResource PurpleLight}"
+                                            CornerRadius="4" Padding="6,2">
+                                        <TextBlock Text="4 urgentes"
+                                                   Foreground="{StaticResource Purple}"
+                                                   FontSize="11" FontWeight="SemiBold"/>
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                    </Grid>
+
+                    <!-- ░░░ FILA 2: Tabla + Panel lateral ░░░ -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="290"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- ── Tabla de Facturas ── -->
+                       
+                        <!-- ── Panel lateral ── -->
+                      
+
+                            <!-- Acciones rápidas -->
+                            <materialDesign:Card   Margin="5" Grid.Column="6" Padding="20,18"
+        Background="{StaticResource BgCard}"
+        BorderBrush="{StaticResource BorderColor}"
+        BorderThickness="1"
+        
+        >
+                                <materialDesign:Card.Effect>
+                                    <DropShadowEffect Color="#00000010" BlurRadius="12"
+ShadowDepth="2" Direction="270"/>
+                                </materialDesign:Card.Effect>
+                                <StackPanel>
+                                    <TextBlock Text="Acciones Rápidas"
+                                               Foreground="{StaticResource TextPrimary}"
+                                               FontSize="14" FontWeight="SemiBold"
+                                               Margin="0,0,0,14"/>
+                                    <Button Style="{StaticResource BtnPrimary}"
+                                            HorizontalAlignment="Stretch"
+                                            Margin="0,0,0,8">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="+ " FontWeight="Bold"/>
+                                            <TextBlock Text="Nueva Factura"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Style="{StaticResource BtnSecondary}"
+                                            HorizontalAlignment="Stretch" Margin="0,0,0,8">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="🔧  " FontSize="13"/>
+                                            <TextBlock Text="Nueva Orden de Trabajo"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Style="{StaticResource BtnSecondary}"
+                                            HorizontalAlignment="Stretch" Margin="0,0,0,8">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="👤  " FontSize="13"/>
+                                            <TextBlock Text="Registrar Cliente"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Style="{StaticResource BtnSecondary}"
+                                            HorizontalAlignment="Stretch">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="📊  " FontSize="13"/>
+                                            <TextBlock Text="Generar Reporte"/>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </materialDesign:Card>
+
+                            <!-- Vehículos en taller -->
+                            <materialDesign:Card   Margin="5" Grid.Column="1" Padding="20,18"
+        Background="{StaticResource BgCard}"
+        BorderBrush="{StaticResource BorderColor}"
+        BorderThickness="1"
+        
+        >
+                                <materialDesign:Card.Effect>
+                                    <DropShadowEffect Color="#00000010" BlurRadius="12"
+ShadowDepth="2" Direction="270"/>
+                                </materialDesign:Card.Effect>
+                                <StackPanel>
+                                    <TextBlock Text="Vehículos en Taller"
+                                               Foreground="{StaticResource TextPrimary}"
+                                               FontSize="14" FontWeight="SemiBold"
+                                               Margin="0,0,0,14"/>
+
+                                    <Border Background="{StaticResource BgBase}"
+                                            CornerRadius="8" Padding="12,10" Margin="0,0,0,8">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel>
+                                                <TextBlock Text="Toyota Hilux 2020"
+                                                           Foreground="{StaticResource TextPrimary}"
+                                                           FontSize="12.5" FontWeight="SemiBold"/>
+                                                <TextBlock Text="Motor — Juan Pérez"
+                                                           Foreground="{StaticResource TextMuted}" FontSize="11"/>
+                                            </StackPanel>
+                                            <Border Grid.Column="1" Background="{StaticResource RedLight}"
+                                                    CornerRadius="4" Padding="6,2" VerticalAlignment="Center">
+                                                <TextBlock Text="Urgente"
+                                                           Foreground="{StaticResource Red}"
+                                                           FontSize="10.5" FontWeight="SemiBold"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+
+                                    <Border Background="{StaticResource BgBase}"
+                                            CornerRadius="8" Padding="12,10" Margin="0,0,0,8">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel>
+                                                <TextBlock Text="Honda CRV 2021"
+                                                           Foreground="{StaticResource TextPrimary}"
+                                                           FontSize="12.5" FontWeight="SemiBold"/>
+                                                <TextBlock Text="Frenos — Laura Díaz"
+                                                           Foreground="{StaticResource TextMuted}" FontSize="11"/>
+                                            </StackPanel>
+                                            <Border Grid.Column="1" Background="{StaticResource AccentLight}"
+                                                    CornerRadius="4" Padding="6,2" VerticalAlignment="Center">
+                                                <TextBlock Text="En proceso"
+                                                           Foreground="{StaticResource Accent}"
+                                                           FontSize="10.5" FontWeight="SemiBold"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+
+                                    <Border Background="{StaticResource BgBase}"
+                                            CornerRadius="8" Padding="12,10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel>
+                                                <TextBlock Text="Ford F-150 2022"
+                                                           Foreground="{StaticResource TextPrimary}"
+                                                           FontSize="12.5" FontWeight="SemiBold"/>
+                                                <TextBlock Text="Afinación — Miguel Torres"
+                                                           Foreground="{StaticResource TextMuted}" FontSize="11"/>
+                                            </StackPanel>
+                                            <Border Grid.Column="1" Background="{StaticResource GreenLight}"
+                                                    CornerRadius="4" Padding="6,2" VerticalAlignment="Center">
+                                                <TextBlock Text="Listo"
+                                                           Foreground="{StaticResource Green}"
+                                                           FontSize="10.5" FontWeight="SemiBold"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
+                            </materialDesign:Card>
+
+                            <!-- Ingresos por servicio -->
+                            <materialDesign:Card   Margin="5" Grid.Column="0" Padding="20,18"
+        Background="{StaticResource BgCard}"
+        BorderBrush="{StaticResource BorderColor}"
+        BorderThickness="1"
+        
+        >
+                                <materialDesign:Card.Effect>
+                                    <DropShadowEffect Color="#00000010" BlurRadius="12"
+ShadowDepth="2" Direction="270"/>
+                                </materialDesign:Card.Effect>
+                                <StackPanel>
+                                    <TextBlock Text="Ingresos por Servicio"
+                                               Foreground="{StaticResource TextPrimary}"
+                                               FontSize="14" FontWeight="SemiBold"
+                                               Margin="0,0,0,14"/>
+
+                                    <!-- Barra 1 -->
+                                    <StackPanel Margin="0,0,0,10">
+                                        <Grid Margin="0,0,0,5">
+                                            <TextBlock Text="Mecánica general"
+                                                       Foreground="{StaticResource TextSecondary}" FontSize="12"/>
+                                            <TextBlock Text="42%"
+                                                       Foreground="{StaticResource AccentText}"
+                                                       FontSize="12" FontWeight="SemiBold"
+                                                       HorizontalAlignment="Right"/>
+                                        </Grid>
+                                        <Border Height="7" CornerRadius="4"
+                                                Background="{StaticResource BorderColor}">
+                                            <Border HorizontalAlignment="Left" CornerRadius="4"
+                                                    Background="{StaticResource Accent}">
+                                                <Border.LayoutTransform>
+                                                    <ScaleTransform ScaleX="0.42"/>
+                                                </Border.LayoutTransform>
+                                            </Border>
+                                        </Border>
+                                    </StackPanel>
+
+                                    <!-- Barra 2 -->
+                                    <StackPanel Margin="0,0,0,10">
+                                        <Grid Margin="0,0,0,5">
+                                            <TextBlock Text="Frenos y suspensión"
+                                                       Foreground="{StaticResource TextSecondary}" FontSize="12"/>
+                                            <TextBlock Text="28%"
+                                                       Foreground="{StaticResource Blue}"
+                                                       FontSize="12" FontWeight="SemiBold"
+                                                       HorizontalAlignment="Right"/>
+                                        </Grid>
+                                        <Border Height="7" CornerRadius="4"
+                                                Background="{StaticResource BorderColor}">
+                                            <Border HorizontalAlignment="Left" CornerRadius="4"
+                                                    Background="{StaticResource Blue}">
+                                                <Border.LayoutTransform>
+                                                    <ScaleTransform ScaleX="0.28"/>
+                                                </Border.LayoutTransform>
+                                            </Border>
+                                        </Border>
+                                    </StackPanel>
+
+                                    <!-- Barra 3 -->
+                                    <StackPanel Margin="0,0,0,10">
+                                        <Grid Margin="0,0,0,5">
+                                            <TextBlock Text="Sistema eléctrico"
+                                                       Foreground="{StaticResource TextSecondary}" FontSize="12"/>
+                                            <TextBlock Text="18%"
+                                                       Foreground="{StaticResource Purple}"
+                                                       FontSize="12" FontWeight="SemiBold"
+                                                       HorizontalAlignment="Right"/>
+                                        </Grid>
+                                        <Border Height="7" CornerRadius="4"
+                                                Background="{StaticResource BorderColor}">
+                                            <Border HorizontalAlignment="Left" CornerRadius="4"
+                                                    Background="{StaticResource Purple}">
+                                                <Border.LayoutTransform>
+                                                    <ScaleTransform ScaleX="0.18"/>
+                                                </Border.LayoutTransform>
+                                            </Border>
+                                        </Border>
+                                    </StackPanel>
+
+                                    <!-- Barra 4 -->
+                                    <StackPanel>
+                                        <Grid Margin="0,0,0,5">
+                                            <TextBlock Text="Otros servicios"
+                                                       Foreground="{StaticResource TextSecondary}" FontSize="12"/>
+                                            <TextBlock Text="12%"
+                                                       Foreground="{StaticResource Green}"
+                                                       FontSize="12" FontWeight="SemiBold"
+                                                       HorizontalAlignment="Right"/>
+                                        </Grid>
+                                        <Border Height="7" CornerRadius="4"
+                                                Background="{StaticResource BorderColor}">
+                                            <Border HorizontalAlignment="Left" CornerRadius="4"
+                                                    Background="{StaticResource Green}">
+                                                <Border.LayoutTransform>
+                                                    <ScaleTransform ScaleX="0.12"/>
+                                                </Border.LayoutTransform>
+                                            </Border>
+                                        </Border>
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </materialDesign:Card>
+
+                        
+                    </Grid>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
     </Grid>
+
+
 </Page>

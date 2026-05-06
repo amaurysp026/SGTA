@@ -92,7 +92,8 @@ namespace SFCH.Logica
                             {
                                 MessageBox.Show("El producto es nulo ");
                                 
-                                throw new Exception("El producto es nulo en la función");
+                                 new Exception("El producto es nulo en la función");
+                                return false;
                             }
                             var p = await db.Productos.Include(x => x.Existencias).FirstOrDefaultAsync(x => x.Id == item.Producto.Id);
                                 var exactual = p.Existencias.Sum(x => x.Entrada) - p.Existencias.Sum(x => x.Salida);

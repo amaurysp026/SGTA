@@ -94,13 +94,13 @@ namespace SFCH.View
             string FechaUTC;
             try
             {
-                FechaUTC = DateTime.Now.ToString("dd/MM/yyyy");
+             //   FechaUTC = DateTime.Now.ToString("dd/MM/yyyy");
               //  FechaInicio.Text = Util.TiempoEnRed().ToString("dd/MM/yyyy");
 
-                FechaInicio.Text = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("America/Santo_Domingo")).ToString("dd/MM/yyyy");
-                img.Source = Util.LoadImage(SesionUsuario.Configuracion.LogoPrincipal??new byte[1]);
-                txtSaludoUsuario.Text = SesionUsuario.Configuracion.NombreComercial;
-                txtNombreEmpresa.Text = SesionUsuario.Configuracion.NombreEmpresa;
+            //    FechaInicio.Text = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("America/Santo_Domingo")).ToString("dd/MM/yyyy");
+                //img.Source = Util.LoadImage(SesionUsuario.Configuracion.LogoPrincipal??new byte[1]);
+               // txtSaludoUsuario.Text = SesionUsuario.Configuracion.NombreComercial;
+               // txtNombreEmpresa.Text = SesionUsuario.Configuracion.NombreEmpresa;
 
             }
             catch (Exception ex)
@@ -115,7 +115,7 @@ namespace SFCH.View
 
 
            
-                FechaInicio.Text = FechaUTC;
+              //  FechaInicio.Text = FechaUTC;
                 //  MessageBox.Show(Session.Configuracion.MensajeError + " :" + ex.Message, "Error");
                
             

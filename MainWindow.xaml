@@ -275,18 +275,18 @@
                         </Fluent:Button.LargeIcon>
                     </Fluent:Button>
                 </Fluent:RibbonGroupBox>
-                <Fluent:RibbonGroupBox Header="Entrega y Despachos">
-                    <Fluent:Button  Padding="5,0" Header="Vehiculos Despachados">
+                <Fluent:RibbonGroupBox Header="Citas y Reservaciones">
+                    <Fluent:Button  Padding="5,0" Header="Calendario de citas">
                         <Fluent:Button.LargeIcon>
                             <materialDesign:PackIcon Kind="ClipboardListOutline" Width="30" Height="30"></materialDesign:PackIcon>
                         </Fluent:Button.LargeIcon>
                     </Fluent:Button>
-                    <Fluent:Button  Padding="5,0" Header="Requisicion de Piezas">
+                    <Fluent:Button  Padding="5,0" Header="Recervaciones por Mantenimiento">
                         <Fluent:Button.LargeIcon>
                             <materialDesign:PackIcon Kind="SwapVerticalCircle" Width="30" Height="30"></materialDesign:PackIcon>
                         </Fluent:Button.LargeIcon>
                     </Fluent:Button>
-                    <Fluent:Button  Padding="5,0" Header="Penalidades">
+                    <Fluent:Button  Padding="5,0" Header="Mantenimiento Preventivo">
                         <Fluent:Button.LargeIcon>
                             <materialDesign:PackIcon Kind="PoliceBadge" Width="30" Height="30"></materialDesign:PackIcon>
                         </Fluent:Button.LargeIcon>

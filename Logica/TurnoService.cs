@@ -26,7 +26,7 @@ namespace SFCH.Logica
             try
             {
                
-                var turno=db.Turnos.Include(x => x.DesgloseBilletes).Include(x => x.ContratosTractor).Include(x => x.DetalleTurnos).Include(x => x.Usuario).FirstOrDefault(t => t.Id == turnot.Id);
+                var turno=db.Turnos.Include(x => x.DesgloseBilletes).Include(x => x.DetalleTurnos).Include(x => x.Usuario).FirstOrDefault(t => t.Id == turnot.Id);
 
                 if (turno == null || !turno.Abierto)
                 {
@@ -125,7 +125,7 @@ namespace SFCH.Logica
 
         public async Task<List<Turno>> ObtenerTurnosAsync()
         {
-            return await db.Turnos.Include(x => x.Facturas).Include(x=>x.DesgloseBilletes).Include(x=>x.ContratosTractor).Include(x => x.DetalleTurnos).Include(x => x.Usuario).OrderDescending().AsNoTracking().ToListAsync();
+            return await db.Turnos.Include(x => x.Facturas).Include(x=>x.DesgloseBilletes).Include(x => x.DetalleTurnos).Include(x => x.Usuario).OrderDescending().AsNoTracking().ToListAsync();
         }
 
         public Task<bool> RegistrarMovimientoCajaAsync(Factura factra)
@@ -395,14 +395,7 @@ namespace SFCH.Logica
                     AddCellNul(x2tpC, turno.Cheques.ToString("C"), TextAlignment.Right);
                     dataGroupT.Rows.Add(x2tpC);
                 }
-                if (turno.ContratosTractor.Sum(x=>x.TotalPagado) > 0)
-                {
-                    var x2tpC = new TableRow();
-                    AddCellNul(x2tpC, "", TextAlignment.Right);
-                    AddCellNul(x2tpC, "Contrato Efectivo:", TextAlignment.Right);
-                    AddCellNul(x2tpC, turno.ContratosTractor.Sum(x => x.TotalPagado).ToString("C"), TextAlignment.Right);
-                    dataGroupT.Rows.Add(x2tpC);
-                }
+               
                 var x2t = new TableRow();
                 AddCellNul3(x2t, "", TextAlignment.Right);
                 AddCellNul3(x2t, "EFECTIVO FINAL:", TextAlignment.Right);
@@ -595,7 +588,7 @@ namespace SFCH.Logica
 
         public async Task<Turno> ObtenerTurnoAsync(int id)
         {
-            return await db.Turnos.Include(x => x.DesgloseBilletes).Include(x=>x.Facturas).Include(x => x.ContratosTractor).Include(x => x.DetalleTurnos).Include(x => x.Usuario).FirstOrDefaultAsync(t => t.Id == id);
+            return await db.Turnos.Include(x => x.DesgloseBilletes).Include(x => x.DetalleTurnos).Include(x => x.Usuario).FirstOrDefaultAsync(t => t.Id == id);
         }
     }
 }

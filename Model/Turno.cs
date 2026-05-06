@@ -15,7 +15,6 @@ namespace SFCH.Model
         public DateTime FechaFin { get; set; }
         public List<Factura> Facturas { get; set; } = new List<Factura>();
         public virtual List<DetalleTurno> DetalleTurnos { get; set; } = new List<DetalleTurno>();
-        public virtual List<ContratoTractor> ContratosTractor { get; set; } = new List<ContratoTractor>();
         public string Estado { get; set; } = null!;
         public bool Abierto { get; set; }
         public decimal TotalInicial { get; set; }

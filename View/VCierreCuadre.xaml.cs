@@ -55,7 +55,7 @@ namespace SFCH.View
                     .Where(f => f.Turno.Id == tturno.Id && !f.Anulada && f.Condicion == "Cheque")
                     .Sum(f => f.Cheque);
             //MessageBox.Show(tturno.TotalFinal.ToString("c"));
-            tturno.TotalFinal =  tturno.EfectivoContado + tturno.ContratosTractor.Sum(x => x.TotalPagado) - tturno.DetalleTurnos.Sum(x => x.Egreso) + tturno.DetalleTurnos.Sum(x => x.Ingreso);
+            tturno.TotalFinal =  tturno.EfectivoContado +  tturno.DetalleTurnos.Sum(x => x.Egreso) + tturno.DetalleTurnos.Sum(x => x.Ingreso);
             tturno.Diferencia = tturno.DifernciaCalculada;
           //  MessageBox.Show(tturno.TotalFinal.ToString("c"));
 
