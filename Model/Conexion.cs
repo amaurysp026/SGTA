@@ -41,7 +41,7 @@ namespace SFCH.Model
         public virtual DbSet<Lote> Lotes { get; set; }
         public virtual DbSet<Empleado> Empleados { get; set; }
         public virtual DbSet<TipoServicioTractor> TipoServicioTractores { get; set; }
-        public virtual DbSet<ContratoTractor> ContratosTractores { get; set; }
+   
         public virtual DbSet<LiquidacionLeche> LiquidacionesLeche { get; set; }
         public virtual DbSet<DetalleLiquidacionLeche> DetallesLiquidacionLeche { get; set; }
         public virtual DbSet<PagoCxC> PagosCxC { get; set; }

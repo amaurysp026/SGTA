@@ -338,94 +338,6 @@ namespace SGTA.Migrations
                     b.ToTable("ContInventarios");
                 });
 
-            modelBuilder.Entity("SFCH.Model.ContratoTractor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("ConArado")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("ConMuro")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Credito")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Direccion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EmpleadoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EntidadId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Nota")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Nulo")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Numero")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Otros")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Precio")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Tarea")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Telefono")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TipoServicioTractorId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalPagado")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalPendiente")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("TurnoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Usuario")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmpleadoId");
-
-                    b.HasIndex("EntidadId");
-
-                    b.HasIndex("TipoServicioTractorId");
-
-                    b.HasIndex("TurnoId");
-
-                    b.ToTable("ContratosTractores");
-                });
-
             modelBuilder.Entity("SFCH.Model.Cuenta", b =>
                 {
                     b.Property<int>("Id")
@@ -2194,41 +2106,6 @@ namespace SGTA.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("SFCH.Model.ContratoTractor", b =>
-                {
-                    b.HasOne("SFCH.Model.Empleado", "Empleado")
-                        .WithMany("ContratosTractor")
-                        .HasForeignKey("EmpleadoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SFCH.Model.Entidad", "Entidad")
-                        .WithMany()
-                        .HasForeignKey("EntidadId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SFCH.Model.TipoServicioTractor", "TipoServicioTractor")
-                        .WithMany()
-                        .HasForeignKey("TipoServicioTractorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SFCH.Model.Turno", "Turno")
-                        .WithMany("ContratosTractor")
-                        .HasForeignKey("TurnoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Empleado");
-
-                    b.Navigation("Entidad");
-
-                    b.Navigation("TipoServicioTractor");
-
-                    b.Navigation("Turno");
-                });
-
             modelBuilder.Entity("SFCH.Model.Cuenta", b =>
                 {
                     b.HasOne("SFCH.Model.TipoCuenta", "TipoCuenta")
@@ -2629,11 +2506,6 @@ namespace SGTA.Migrations
                     b.Navigation("Pagos");
                 });
 
-            modelBuilder.Entity("SFCH.Model.Empleado", b =>
-                {
-                    b.Navigation("ContratosTractor");
-                });
-
             modelBuilder.Entity("SFCH.Model.Entidad", b =>
                 {
                     b.Navigation("CxCs");
@@ -2677,8 +2549,6 @@ namespace SGTA.Migrations
 
             modelBuilder.Entity("SFCH.Model.Turno", b =>
                 {
-                    b.Navigation("ContratosTractor");
-
                     b.Navigation("DesgloseBilletes");
 
                     b.Navigation("DetalleTurnos");

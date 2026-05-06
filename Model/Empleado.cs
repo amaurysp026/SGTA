@@ -30,7 +30,7 @@ namespace SFCH.Model
         public string? Cargo { get; set; }
         public string Genero { get; set; }=null!;
         public bool Activo { get; set; }
-        public virtual List<ContratoTractor>? ContratosTractor { get; set; }
+      //  public virtual List<ContratoTractor>? ContratosTractor { get; set; }
         public decimal Salario { get; set; }
         public decimal Comision { get; set; }
         public DateTime FechadeIngreso { get; set; }
